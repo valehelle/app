@@ -26,6 +26,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+
+  config.reload_classes_only_on_change = false
   #Devise email
   config.action_mailer.defaul_url_options = {host:'localhost',port: 3000}
 

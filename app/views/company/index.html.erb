@@ -1,0 +1,4 @@
+<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+<h1>Index</h1>
+<%= @company.name%>
+<%= link_to 'edit', edit_company_path(@company) %>
