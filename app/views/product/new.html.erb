@@ -1,0 +1,13 @@
+<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+
+<h1>New</h1>
+
+<%= form_for :product, url: product_index_path do |f| %>
+    <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+        <%= f.label :form_id %>
+        <%= f.number_field :form_id %>
+        <%= f.submit %>
+    </p>
+<% end %>

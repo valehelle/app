@@ -1,0 +1,6 @@
+<h1>FORM</h1>
+<% @forms.each do |f| %>
+    <%= f.name %> <br>
+    <%= f.id %> <br>
+<% end %>
+<%= link_to 'Create', new_form_path%>

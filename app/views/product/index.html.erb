@@ -1,0 +1,9 @@
+<h1>PRODUCT</h1>
+<% if @products.exists? %>
+    <% @products.each do |product| %>
+    <%= link_to product.name, product_path(product)%> <br>
+    <% end %>
+<% else %>
+    <p>DOES NOT EXIST</p>
+<% end %>
+<%= link_to 'add', new_product_path%>
