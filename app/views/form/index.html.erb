@@ -1,6 +1,19 @@
-<h1>FORM</h1>
-<% @forms.each do |f| %>
-    <%= f.name %> <br>
-    <%= f.id %> <br>
-<% end %>
-<%= link_to 'Create', new_form_path%>
+<div class="container">
+    <h2>FORM</h2>     
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Reference ID</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @forms.each do |f| %>
+        <tr>
+            <td><%= link_to f.ref_id , f %></td>
+            <td><%= f.name %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,8 +1,11 @@
-<h1>NEW FORM</h1>
-
-<%= form_for @form , url: form_index_path do |f| %>
-    <%= f.label :name%>
-    <%= f.text_field :name%>
-    <%= link_to_add_fields "Add Product", f, :product %>
-    <%= f.submit %>
-<% end %>
+<div class = "col-xs-12 col-md-8">
+    <h2>Create Form</h2>
+    <%= form_for @form , url: form_index_path do |f| %>
+        <div class = "form-group">
+            <%= f.label "Form Name" %>
+            <%= f.text_field :name , :class => "form-control" %>
+        </div>
+        <%= link_to_add_fields "Add Product", f, :product %>
+        <%= f.submit  "Create" , :class => "btn btn-success" %>
+    <% end %>
+</div>

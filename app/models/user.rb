@@ -6,4 +6,5 @@ class User < ApplicationRecord
   has_one :company
   has_many :product
   has_many :form
+  has_many :receipt
 end

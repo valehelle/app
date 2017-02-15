@@ -1,0 +1,9 @@
+VIEW
+<%= form_for @receipt , url: receipt_index_path do |f| %>
+    <%=  f.fields_for :productreceipt do |p| %>
+        name
+         <%= p.object.name %><br>
+        <%= p.text_field :name , :class => "col-xs-12 col-md-12"%><br>
+    <% end %>
+    <%= f.submit  "Submit" , :class => "btn btn-success" %>
+<% end %>

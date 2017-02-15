@@ -3,8 +3,7 @@ class FormController < ApplicationController
         @forms = current_user.form.all
     end
 
-    def view
-        @form = Form.find_by(ref_id: "4AFe")
+    def show
     end
 
     def new
@@ -13,6 +12,7 @@ class FormController < ApplicationController
     def create
         @form = current_user.form.build(form_params)
         @form.save!
+
         @products = @form.product.where(user_id: nil)
         @products.each do |product|
             puts product.name
@@ -40,7 +40,14 @@ class FormController < ApplicationController
     end
 
     private 
-        def form_params
-            params.require(:form).permit(:name, product_attributes: [:name, :id, :user_id], user_attributes: [:id])
+    def form_params
+        params.require(:form).permit(:name, product_attributes: [:name, :id, :user_id, :desc, :price, :stock ], user_attributes: [:id])
+    end
+
+    def generate_ref_id(length = 5)
+        loop do
+        ref_id = SecureRandom.hex(length)
+        break ref_id unless Form.where(ref_id: ref_id).exists?
         end
+    end
 end

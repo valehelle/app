@@ -6,15 +6,64 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <%= stylesheet_link_tag "navbar-fixed-side" %>
+    
   </head>
 
+  <navbar>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-lg-2">
+          <nav class="navbar navbar-default navbar-fixed-side">
+           <div class="navbar-header">
+                <%= link_to "Dashboard", dashboard_path, :class => "navbar-brand" %>
+              <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                  <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Form<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li class = "<%= active_class(form_index_path) %>"> <%= link_to "View", form_index_path %> </li>
+                      <li class = "<%= active_class(new_form_path) %> "> <%= link_to "Create", new_form_path %> </li>
+                    </ul>
+                  </li>
+                  <li class="dropdown "><a class="dropdown-toggle" data-toggle="dropdown" href="#">Receipt<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li class = "<%= active_class(product_index_path) %>"> <%= link_to "View", receipt_index_path %> </li>
+                      <li class = "<%= active_class(product_index_path) %>"> <%= link_to "Create", new_receipt_path %> </li>
+                    </ul>
+                  </li>
+                  <li class = "<%= active_class(product_index_path) %>"> <%= link_to "Products", product_index_path %> </li>
+                    
+                  <li>
+                    <a href="./">Company</a>
+                  </li>
+                  <li>
+                    <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                  </li>
+                <p class="navbar-text">
+                    Visual Receipt
+                </p>
+            </div>
+          </nav>
+        </div>
+        <div class="col-sm-9 col-lg-10">
+          <%= yield %>
+          <!-- your page content -->
+        </div>
+      </div>
+    </div>
+  </navbar>
   <body>
-    <p class="notice"><%= notice =%> </p>
-    <p class="alert"><%= alert =%> </p>
-    <% if !user_signed_in? %>
-      <%= link_to  "Sign Up", new_user_registration_path =%>
-      <%= link_to  "Sign In", new_user_session_path %>
-    <% end %>
-    <%= yield %>
   </body>
 </html>
