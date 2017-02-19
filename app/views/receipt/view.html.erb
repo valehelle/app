@@ -1,10 +1,179 @@
-VIEW
-<%= form_for @receipt , url: receipt_index_path(@form) do |f| %>
-    <%=  f.hidden_field :form_id %>
-    <%=  f.fields_for :productreceipt do |p| %>
-        name
-        <%= p.object.name %><br>
-        <%= p.number_field :qty , :class => "col-xs-12 col-md-12"%><br>
-    <% end %>
-    <%= f.submit  "Submit" , :class => "btn btn-success" %>
-<% end %>
+
+    
+    <div class = "container">
+		<div class = "row">
+			<div class = "col-md-12 col-xs-12">
+				{%if receipt %}
+					<div class = "col-xs-12 col-md-8 col-md-push-2 shadow" style = "padding-left:0px; padding-right:0px; background-color:white;  margin-bottom:4px;">
+						<div id = "banner">
+						    <img src="/media/{{ company.banner.image }}" class="img-responsive" alt="Cinque Terre" width="auto" min-height="13vh">
+						</div>
+						<div class = "col-xs-12 "  >
+							<div id = "companyinfo" >
+								<h5><b><%= @company.name %></b></h5>
+								<h5><%= @company.phone %></h5>
+								<h5><%= @company.email %></h5>
+							</div>
+						</div>
+					    <% if @receipt.status == "Buyer Paid" || @receipt.status == "Shipped"  %>
+                            <div id = "shipto" class = "col-xs-12" >
+                                <h5><b>Ship To</b></h5>
+                                <hr style = "margin-top:0px; margin-bottom:0px;">
+                                <h5><%= @receipt.customer_name %></h5>
+                                <h5><%= @receipt.customer_email %></h5>
+                                <h5><%= @receipt.customer_phone %></h5>
+                                <h5><%= @receipt.customer_address %>,</h5>
+                                <h5><%= @receipt.customer_poskod %>, <%= @receipt.customer_district %>,</h5>
+                                <h5><%= @receipt.customer_state %></h5>
+                                                
+                            </div>
+                            <div id = "proofpayment" class = "col-xs-12" >
+                                <h5><b>Proof of payment</b></h5>
+                                <hr style = "margin-top:0px; margin-bottom:0px;">
+                                <img src="/media/{{receipt.paymentproof}}" class="img-responsive" alt="Cinque Terre" width="auto" height="13vh">
+                            </div>
+						<% end %>
+						<div id = "receiptstatus" class = "col-xs-12 col-md-12" style = "margin-bottom:10px; margin-top:10px;">
+							<div class = "col-xs-8 col-md-4" style = "background-color:#4CAF50;">
+								<h5  style = "color:white;text-align:center;"><b><%= @receipt.status %></b></h5>
+							</div>							
+						</div>
+                        <% if @receipt.status == "Shipped" %>
+                            <div id = "shipped" class = "col-xs-12 col-md-12">
+                                <h5 ><%= @receipt.courrier %></h5>
+                                <h5 ><%= @receipt.shipping_number %></h5>								
+                            </div>
+						<% end %>
+
+                        <% if false %>
+						<div id = "paymentmethod" class = "col-xs-12" >
+							<h5><b>Update Shipment</b></h5>
+							<hr style = "margin-top:0px; margin-bottom:0px;">
+								<form action="/dashboard/receipt/shipping/update/{{receipt.keyid}}/" method="post">
+								{% csrf_token %}
+									<div class="form-group">
+										<label for="id_name">Shipment Courrier:</label>
+										<select class = "form-control" name = "shippingcourrier">
+										  <option value="volvo">Pos Laju</option>
+										  <option value="saab">Ninjavan</option>
+										  <option value="mercedes">Pos Ekspress</option>
+										  <option value="audi">COD</option>
+										</select>
+									 </div>
+									<div class="form-group">
+										<label for="id_tracking">Tracking Number:</label>
+										<input id="id_tracking" maxlength="30" name="shippingnumber" type="text"  required="" class = "form-control">
+									</div>
+								<button type="submit" class="btn btn-success col-xs-12" style = "margin-bottom:10px;">Submit</button>
+								  <h6>By clicking submit you agree that all the information provided below is correct.</h6>
+								</form>	
+						</div>
+						<% end %>
+
+						<div id = "paymentmethod" class = "col-xs-12" >
+							<h5><b>Payment Method</b></h5>
+							<hr style = "margin-top:0px; margin-bottom:0px;">
+							<h5><%= @company.payment_method %></h5>			
+						</div>
+					
+						<div class = "col-xs-12" id = "itemInfo"  style = "background-color:lightgrey;">
+							<div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;">
+								<h5>Items</h5>
+							</div>
+							<div class = "col-xs-4">
+								<h5 style = "text-align: right;">Amount</h5>
+							</div>
+						</div> 
+						<div class = "col-xs-12" id = "productInfo" >
+                            <%= form_for @receipt , url: receipt_index_path(@form) do |f| %>
+                                <%=  f.hidden_field :form_id %>
+                                    <% counter = 0 %>
+                                    <%=  f.fields_for :productreceipt do |p| %>
+                                <div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;">
+                                    <h5><%= p.object.name %></h5>
+                                    
+                                    <h5><%= p.object.desc %></h5>
+                                </div>
+                                <div class = "col-xs-4">
+                                    <h5 style = "text-align: right;">RM<span class = "price" ><%= p.object.price %></span></h5>
+                                </div>
+                                <div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;  ">
+                                    <h5>Quantity: </h5> <%= p.number_field :qty , :class => "qty", :data => p.object.price, :sub => counter %>
+                                </div>
+                                <div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;">
+                                    <h5 style = "text-align:right;">Subtotal:</h5>
+                                </div>
+                                <div class = "col-xs-4">
+                                    <h5 style = "text-align: right;"><b>RM<span id = <%= counter %> ></span></b></h5>
+                                </div>
+                                <div class = "col-xs-12" style = "padding-left:0px; padding-right:0px;">
+                                    <hr>
+                                </div>
+                                    <% counter = counter + 1 %>
+                                    <% end %>  
+                                <%= f.submit  "Submit" , :class => "btn btn-success" %>
+                            <% end %>  
+
+
+
+							<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+								<h5>Shipping:</h5>
+							</div>
+							<div class="col-xs-4">
+								<h5 style="text-align: right;"><b>RM{{receipt.shippingprice}}</b></h5>
+							</div>
+							<div class="col-xs-12" style="padding-left:0px; padding-right:0px;">
+								<hr>
+							</div>
+							<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+								<h3 style="text-align:right;"><b>Total:</b></h3>
+							</div>
+							<div class="col-xs-4">
+								<h3 style="text-align: right;"><b>RM<span id = "total">0.00</span></b></h3>
+							</div>
+						</div>
+							{% if receipt.status == "WAITING PAYMENT" %}
+							<div id = "shipto" class = "col-xs-12" style = "background-color:#298fca; color:white;">
+								<h3 style = "text-align:center;">Shipment Details</h3>
+								<form action="." method="post" enctype="multipart/form-data">
+								{% csrf_token %}
+									<div class="form-group">
+										<label for="id_name">Name:</label>
+										<input id="id_name" maxlength="50" name="name" type="text" required="" class = "form-control">
+									 </div>
+									<div class="form-group">
+										<label for="id_email">Email:</label>
+										<input id="id_email" maxlength="30" name="email" type="text"  required="" class = "form-control">
+									</div>
+									<div class="form-group">
+										<label for="id_phone">Phone:</label>
+										<input id="id_phone" name="phone" type="number"  required="" class = "form-control">
+									</div>
+									  
+									<div class="form-group">
+										<label for="id_address">Address:</label>
+										<textarea cols="40" id="id_address" name="address" rows="10" required="" class = "form-control"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="id_poskod">Poskod:</label>
+										 <input id="id_poskod" name="poskod" type="number"  required="" class = "form-control">
+									</div>
+									<div class="form-group">
+										<label for="address">State:</label>
+										<input id="id_state" maxlength="50" name="state" type="text"  required="" class = "form-control">
+									</div>
+									<div class="form-group">
+										<label for="id_paymentproof">Proof of payment:</label> <input id="id_paymentproof" name="paymentproof" type="file">
+									</div>
+								<button type="submit" class="btn btn-success col-xs-12" style = "margin-bottom:10px;">Submit</button>
+								  <h6>By clicking submit you agree that all the information provided below is correct.</h6>
+								</form>
+							</div>
+							{% endif %}
+					</div>
+				{% else %}
+				<h1>Receipt Not Found</h1>
+				{%endif%}
+			</div>
+		</div>
+	</div>
