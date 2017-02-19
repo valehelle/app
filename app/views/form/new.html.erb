@@ -1,11 +1,23 @@
-<div class = "col-xs-12 col-md-8">
+
     <h2>Create Form</h2>
+    <% if @form.errors.any? %>
+        <div class = "col-xs-12 col-md-12" id="error_explanation">
+            <ul>
+            <% @form.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
+
     <%= form_for @form , url: form_index_path do |f| %>
+    <div class = "col-xs-12 col-md-4">
         <div class = "form-group">
-            <%= f.label "Form Name" %>
+            <%= f.label "Name" %>
             <%= f.text_field :name , :class => "form-control" %>
         </div>
-        <%= link_to_add_fields "Add Product", f, :product %>
+        <%= link_to_add_fields "Add a Product", f, :product %>
         <%= f.submit  "Create" , :class => "btn btn-success" %>
+    </div>
     <% end %>
-</div>
+

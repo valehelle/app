@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214140438) do
+ActiveRecord::Schema.define(version: 20170218115513) do
 
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -49,16 +49,17 @@ ActiveRecord::Schema.define(version: 20170214140438) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "qty"
+    t.integer  "user_id"
   end
 
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.text     "desc",       limit: 65535
-    t.decimal  "price",                    precision: 10
-    t.integer  "stock"
+    t.decimal  "price",                    precision: 8, scale: 2, default: "0.0"
+    t.integer  "stock",                                            default: 0
     t.boolean  "editable"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.integer  "user_id"
     t.integer  "form_id"
   end
@@ -71,9 +72,12 @@ ActiveRecord::Schema.define(version: 20170214140438) do
     t.string   "shipping_country"
     t.string   "customer_email"
     t.string   "customer_phone"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "user_id"
+    t.string   "ref_id"
+    t.string   "status",            default: "Waiting Payment"
+    t.string   "customer_name"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

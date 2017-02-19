@@ -1,1 +1,26 @@
-Helo
+<h2>
+  Receipt</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Reference ID</th>
+      <th>Name</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @receipts.each do |f| %>
+      <tr>
+        <td>
+          <%= link_to f.ref_id , f %>
+        </td>
+        <td>
+          <%= f.ref_id %>
+        </td>
+        <td>
+          <%= f.status %>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

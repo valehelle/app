@@ -1,19 +1,31 @@
-<div class="container">
-    <h2>FORM</h2>     
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Reference ID</th>
-        <th>Name</th>
-      </tr>
-    </thead>
-    <tbody>
+<h2>FORM</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="col-xs-2 col-md-2">Reference ID</th>
+      <th class="col-xs-8 col-md-5">Name</th>
+      <th class="col-xs-2 col-md-1">Orders</th>
+      <th class="hidden-xs hidden-sm col-md-5">Action</th>
+    </tr>
+  </thead>
+  <tbody>
     <% @forms.each do |f| %>
-        <tr>
-            <td><%= link_to f.ref_id , f %></td>
-            <td><%= f.name %></td>
-        </tr>
-    <% end %>
-    </tbody>
-  </table>
-</div>
+      <tr>
+        <td>
+          <%= link_to f.ref_id , f %>
+        </td>
+        <td>
+          <%= f.name %>
+        </td>
+        <td>
+          <%= f.receipt.count %>
+        </td>
+        <td class = "hidden-xs hidden-sm">
+          <%= link_to 'Edit' , edit_form_path(f), :class => "btn btn-success" %>
+          <%= link_to 'View' , form_view_path(f.ref_id), :class => "btn btn-primary" %>
+          <%= link_to 'Delete' , f , method: :delete, data: {confirm: "Are you sure?"} , :class => "btn btn-danger" %>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

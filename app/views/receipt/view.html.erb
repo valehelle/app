@@ -1,9 +1,10 @@
 VIEW
-<%= form_for @receipt , url: receipt_index_path do |f| %>
+<%= form_for @receipt , url: receipt_index_path(@form) do |f| %>
+    <%=  f.hidden_field :form_id %>
     <%=  f.fields_for :productreceipt do |p| %>
         name
-         <%= p.object.name %><br>
-        <%= p.text_field :name , :class => "col-xs-12 col-md-12"%><br>
+        <%= p.object.name %><br>
+        <%= p.number_field :qty , :class => "col-xs-12 col-md-12"%><br>
     <% end %>
     <%= f.submit  "Submit" , :class => "btn btn-success" %>
 <% end %>
