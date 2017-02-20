@@ -24,7 +24,7 @@ class ReceiptController < ApplicationController
     end
     def create
         @form = Form.find_by(ref_id: params[:receipt][:form_id])
-        @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.id)
+        @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.id, customer_name: params[:receipt][:customer_name], customer_email: params[:receipt][:customer_email],customer_phone: params[:receipt][:customer_phone],shipping_address: params[:receipt][:shipping_address] ,shipping_state: params[:receipt][:shipping_state], shipping_poskod: params[:receipt][:shipping_poskod])
         @receipt.save!
 
         @form.product.zip(params[:receipt][:productreceipt_attributes].values).each do |product, productreceipt|

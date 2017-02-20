@@ -111,16 +111,11 @@
                                 </div>
                                     <% counter = counter + 1 %>
                                     <% end %>  
-                                <%= f.submit  "Submit" , :class => "btn btn-success" %>
-                            <% end %>  
-
-
-
 							<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
 								<h5>Shipping:</h5>
 							</div>
 							<div class="col-xs-4">
-								<h5 style="text-align: right;"><b>RM{{receipt.shippingprice}}</b></h5>
+								<h5 style="text-align: right;"><b>RM<span id = "shippingprice">52.58</span></b></h5>
 							</div>
 							<div class="col-xs-12" style="padding-left:0px; padding-right:0px;">
 								<hr>
@@ -132,48 +127,44 @@
 								<h3 style="text-align: right;"><b>RM<span id = "total">0.00</span></b></h3>
 							</div>
 						</div>
-							{% if receipt.status == "WAITING PAYMENT" %}
+							<% if @receipt.status == "Waiting Payment" %>
 							<div id = "shipto" class = "col-xs-12" style = "background-color:#298fca; color:white;">
 								<h3 style = "text-align:center;">Shipment Details</h3>
 								<form action="." method="post" enctype="multipart/form-data">
-								{% csrf_token %}
 									<div class="form-group">
-										<label for="id_name">Name:</label>
-										<input id="id_name" maxlength="50" name="name" type="text" required="" class = "form-control">
+										<%= f.label "Customer Name" %>
+										<%= f.text_field :customer_name , :class => "form-control" %>
 									 </div>
 									<div class="form-group">
-										<label for="id_email">Email:</label>
-										<input id="id_email" maxlength="30" name="email" type="text"  required="" class = "form-control">
+										<%= f.label "Customer Email" %>
+										<%= f.email_field :customer_email , :class => "form-control" %>
 									</div>
 									<div class="form-group">
-										<label for="id_phone">Phone:</label>
-										<input id="id_phone" name="phone" type="number"  required="" class = "form-control">
+										<%= f.label "Customer Phone" %>
+										<%= f.text_field :customer_phone , :class => "form-control" %>
 									</div>
 									  
 									<div class="form-group">
-										<label for="id_address">Address:</label>
-										<textarea cols="40" id="id_address" name="address" rows="10" required="" class = "form-control"></textarea>
+										<%= f.label "Address" %>
+										<%= f.text_area :shipping_address , :class => "form-control" %>
 									</div>
 									<div class="form-group">
-										<label for="id_poskod">Poskod:</label>
-										 <input id="id_poskod" name="poskod" type="number"  required="" class = "form-control">
+										<%= f.label "Poskod" %>
+										<%= f.number_field :shipping_poskod , :class => "form-control" %>
 									</div>
 									<div class="form-group">
-										<label for="address">State:</label>
-										<input id="id_state" maxlength="50" name="state" type="text"  required="" class = "form-control">
+										<%= f.label "State" %>
+										<%= f.text_field :shipping_state , :class => "form-control" %>
 									</div>
-									<div class="form-group">
-										<label for="id_paymentproof">Proof of payment:</label> <input id="id_paymentproof" name="paymentproof" type="file">
-									</div>
-								<button type="submit" class="btn btn-success col-xs-12" style = "margin-bottom:10px;">Submit</button>
+								<%= f.submit  "Submit" , :class => "btn btn-success col-xs-12" , :style => "margin-bottom:10px;"%>
 								  <h6>By clicking submit you agree that all the information provided below is correct.</h6>
 								</form>
 							</div>
-							{% endif %}
+							<% end %>
+
+							
+                        	<% end %>  
 					</div>
-				{% else %}
-				<h1>Receipt Not Found</h1>
-				{%endif%}
 			</div>
 		</div>
 	</div>
