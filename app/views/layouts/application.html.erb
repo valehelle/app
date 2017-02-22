@@ -50,10 +50,7 @@
                     </ul>
                   </li>
                   <li class = "<%= active_class(product_index_path) %>"> <%= link_to "Products", product_index_path %> </li>
-                    
-                  <li>
-                    <a href="./">Company</a>
-                  </li>
+                  <li class = "<%= active_class(company_index_path) %>"> <%= link_to "Company", company_index_path %> </li>
                   <li>
                     <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
                   </li>

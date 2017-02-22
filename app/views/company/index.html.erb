@@ -1,4 +1,21 @@
-<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-<h1>Index</h1>
-<%= @company.name%>
+<h2>COMPANY</h2>
+<h3>Name:</h3>
+<h3><%= @company.name %></h3>
+<h3>Address:</h3>
+<h3><%= @company.address %></h3>
+<h3>Poskod:</h3>
+<h3><%= @company.poskod %></h3>
+<h3>State:</h3>
+<h3><%= @company.state %></h3>
+<h3>Country:</h3>
+<h3><%= @company.country %></h3>
+<h3>Email:</h3>
+<h3><%= @company.email %></h3>
+<h3>Phone:</h3>
+<h3><%= @company.phone %></h3>
+<h3>Payment Method:</h3>
+<h3><%= @company.payment_method %></h3>
+<h3>Banner</h3>
+<h3><%= image_tag @company.banner if @company.banner? %></h3>
+
 <%= link_to 'edit', edit_company_path(@company) %>
