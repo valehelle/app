@@ -1,170 +1,200 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 col-xs-12">
+			<div class="col-xs-12 col-md-8 col-md-push-2 shadow" style="padding-left:0px; padding-right:0px; background-color:white;  margin-bottom:4px;">
+				<div id="banner" style = "background-image: url(<%= @company.banner %>); background-size:cover; height: 200px;">
+				</div>
+				<div class="col-xs-12 ">
+					<div id="companyinfo">
+						<h5><b><%= @company.name %></b></h5>
+						<h5>
+							<%= @company.address %>
+						</h5>
+						<h5>
+							<%= @company.district %>
+						</h5>
+						<h5>
+							<%= @company.poskod %>
+						</h5>
+						<h5>
+							<%= @company.phone %>
+						</h5>
+						<h5>
+							<%= @company.email %>
+						</h5>
+					</div>
+				</div>
+				<% if @receipt.status == "Buyer Paid" || @receipt.status == "Shipped"  %>
+					<div id="shipto" class="col-xs-12">
+						<h5><b>Ship To</b></h5>
+						<hr style="margin-top:0px; margin-bottom:0px;">
+						<h5>
+							<%= @receipt.customer_name %>
+						</h5>
+						<h5>
+							<%= @receipt.customer_email %>
+						</h5>
+						<h5>
+							<%= @receipt.customer_phone %>
+						</h5>
+						<h5>
+							<%= @receipt.customer_address %>,</h5>
+						<h5>
+							<%= @receipt.customer_poskod %>,
+								<%= @receipt.customer_district %>,</h5>
+						<h5>
+							<%= @receipt.customer_state %>
+						</h5>
 
-    
-    <div class = "container">
-		<div class = "row">
-			<div class = "col-md-12 col-xs-12">
-				{%if receipt %}
-					<div class = "col-xs-12 col-md-8 col-md-push-2 shadow" style = "padding-left:0px; padding-right:0px; background-color:white;  margin-bottom:4px;">
-						<div id = "banner">
-						    <img src="/media/{{ company.banner.image }}" class="img-responsive" alt="Cinque Terre" width="auto" min-height="13vh">
-						</div>
-						<div class = "col-xs-12 "  >
-							<div id = "companyinfo" >
-								<h5><b><%= @company.name %></b></h5>
-								<h5><%= @company.phone %></h5>
-								<h5><%= @company.email %></h5>
+					</div>
+					<div id="proofpayment" class="col-xs-12">
+						<h5><b>Proof of payment</b></h5>
+						<hr style="margin-top:0px; margin-bottom:0px;">
+						<img src="/media/{{receipt.paymentproof}}" class="img-responsive" alt="Cinque Terre" width="auto" height="13vh">
+					</div>
+					<% end %>
+						<% if @receipt.status == "Shipped" %>
+							<div id="receiptstatus" class="col-xs-12 col-md-12" style="margin-bottom:10px; margin-top:10px;">
+								<div class="col-xs-8 col-md-4" style="background-color:#4CAF50;">
+									<h5 style="color:white;text-align:center;"><b><%= @receipt.status %></b></h5>
+								</div>
 							</div>
-						</div>
-					    <% if @receipt.status == "Buyer Paid" || @receipt.status == "Shipped"  %>
-                            <div id = "shipto" class = "col-xs-12" >
-                                <h5><b>Ship To</b></h5>
-                                <hr style = "margin-top:0px; margin-bottom:0px;">
-                                <h5><%= @receipt.customer_name %></h5>
-                                <h5><%= @receipt.customer_email %></h5>
-                                <h5><%= @receipt.customer_phone %></h5>
-                                <h5><%= @receipt.customer_address %>,</h5>
-                                <h5><%= @receipt.customer_poskod %>, <%= @receipt.customer_district %>,</h5>
-                                <h5><%= @receipt.customer_state %></h5>
-                                                
-                            </div>
-                            <div id = "proofpayment" class = "col-xs-12" >
-                                <h5><b>Proof of payment</b></h5>
-                                <hr style = "margin-top:0px; margin-bottom:0px;">
-                                <img src="/media/{{receipt.paymentproof}}" class="img-responsive" alt="Cinque Terre" width="auto" height="13vh">
-                            </div>
-						<% end %>
-						<div id = "receiptstatus" class = "col-xs-12 col-md-12" style = "margin-bottom:10px; margin-top:10px;">
-							<div class = "col-xs-8 col-md-4" style = "background-color:#4CAF50;">
-								<h5  style = "color:white;text-align:center;"><b><%= @receipt.status %></b></h5>
-							</div>							
-						</div>
-                        <% if @receipt.status == "Shipped" %>
-                            <div id = "shipped" class = "col-xs-12 col-md-12">
-                                <h5 ><%= @receipt.courrier %></h5>
-                                <h5 ><%= @receipt.shipping_number %></h5>								
-                            </div>
-						<% end %>
+							<div id="shipped" class="col-xs-12 col-md-12">
+								<h5>
+									<%= @receipt.courrier %>
+								</h5>
+								<h5>
+									<%= @receipt.shipping_number %>
+								</h5>
+							</div>
+							<% end %>
 
-                        <% if false %>
-						<div id = "paymentmethod" class = "col-xs-12" >
-							<h5><b>Update Shipment</b></h5>
-							<hr style = "margin-top:0px; margin-bottom:0px;">
-								<form action="/dashboard/receipt/shipping/update/{{receipt.keyid}}/" method="post">
-								{% csrf_token %}
-									<div class="form-group">
-										<label for="id_name">Shipment Courrier:</label>
-										<select class = "form-control" name = "shippingcourrier">
+								<% if false %>
+									<div id="paymentmethod" class="col-xs-12">
+										<h5><b>Update Shipment</b></h5>
+										<hr style="margin-top:0px; margin-bottom:0px;">
+										<form action="/dashboard/receipt/shipping/update/{{receipt.keyid}}/" method="post">
+											{% csrf_token %}
+											<div class="form-group">
+												<label for="id_name">Shipment Courrier:</label>
+												<select class="form-control" name="shippingcourrier">
 										  <option value="volvo">Pos Laju</option>
 										  <option value="saab">Ninjavan</option>
 										  <option value="mercedes">Pos Ekspress</option>
 										  <option value="audi">COD</option>
 										</select>
-									 </div>
-									<div class="form-group">
-										<label for="id_tracking">Tracking Number:</label>
-										<input id="id_tracking" maxlength="30" name="shippingnumber" type="text"  required="" class = "form-control">
+											</div>
+											<div class="form-group">
+												<label for="id_tracking">Tracking Number:</label>
+												<input id="id_tracking" maxlength="30" name="shippingnumber" type="text" required="" class="form-control">
+											</div>
+											<button type="submit" class="btn btn-success col-xs-12" style="margin-bottom:10px;">Submit</button>
+											<h6>By clicking submit you agree that all the information provided below is correct.</h6>
+										</form>
 									</div>
-								<button type="submit" class="btn btn-success col-xs-12" style = "margin-bottom:10px;">Submit</button>
-								  <h6>By clicking submit you agree that all the information provided below is correct.</h6>
-								</form>	
-						</div>
-						<% end %>
+									<% end %>
 
-						<div id = "paymentmethod" class = "col-xs-12" >
-							<h5><b>Payment Method</b></h5>
-							<hr style = "margin-top:0px; margin-bottom:0px;">
-							<h5><%= @company.payment_method %></h5>			
-						</div>
-					
-						<div class = "col-xs-12" id = "itemInfo"  style = "background-color:lightgrey;">
-							<div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;">
-								<h5>Items</h5>
-							</div>
-							<div class = "col-xs-4">
-								<h5 style = "text-align: right;">Amount</h5>
-							</div>
-						</div> 
-						<div class = "col-xs-12" id = "productInfo" >
-                            <%= form_for @receipt , url: receipt_index_path(@form) do |f| %>
-                                <%=  f.hidden_field :form_id %>
-                                    <% counter = 0 %>
-                                    <%=  f.fields_for :productreceipt do |p| %>
-                                <div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;">
-                                    <h5><%= p.object.name %></h5>
-                                    
-                                    <h5><%= p.object.desc %></h5>
-                                </div>
-                                <div class = "col-xs-4">
-                                    <h5 style = "text-align: right;">RM<span class = "price" ><%= p.object.price %></span></h5>
-                                </div>
-                                <div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;  ">
-                                    <h5>Quantity: </h5> <%= p.number_field :qty , :class => "qty", :data => p.object.price, :sub => counter %>
-                                </div>
-                                <div class = "col-xs-8" style = "padding-left:0px; padding-right:0px;">
-                                    <h5 style = "text-align:right;">Subtotal:</h5>
-                                </div>
-                                <div class = "col-xs-4">
-                                    <h5 style = "text-align: right;"><b>RM<span id = <%= counter %> ></span></b></h5>
-                                </div>
-                                <div class = "col-xs-12" style = "padding-left:0px; padding-right:0px;">
-                                    <hr>
-                                </div>
-                                    <% counter = counter + 1 %>
-                                    <% end %>  
-							<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
-								<h5>Shipping:</h5>
-							</div>
-							<div class="col-xs-4">
-								<h5 style="text-align: right;"><b>RM<span id = "shippingprice">52.58</span></b></h5>
-							</div>
-							<div class="col-xs-12" style="padding-left:0px; padding-right:0px;">
-								<hr>
-							</div>
-							<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
-								<h3 style="text-align:right;"><b>Total:</b></h3>
-							</div>
-							<div class="col-xs-4">
-								<h3 style="text-align: right;"><b>RM<span id = "total">0.00</span></b></h3>
-							</div>
-						</div>
-							<% if @receipt.status == "Waiting Payment" %>
-							<div id = "shipto" class = "col-xs-12" style = "background-color:#298fca; color:white;">
-								<h3 style = "text-align:center;">Shipment Details</h3>
-								<form action="." method="post" enctype="multipart/form-data">
-									<div class="form-group">
-										<%= f.label "Customer Name" %>
-										<%= f.text_field :customer_name , :class => "form-control" %>
-									 </div>
-									<div class="form-group">
-										<%= f.label "Customer Email" %>
-										<%= f.email_field :customer_email , :class => "form-control" %>
-									</div>
-									<div class="form-group">
-										<%= f.label "Customer Phone" %>
-										<%= f.text_field :customer_phone , :class => "form-control" %>
-									</div>
-									  
-									<div class="form-group">
-										<%= f.label "Address" %>
-										<%= f.text_area :shipping_address , :class => "form-control" %>
-									</div>
-									<div class="form-group">
-										<%= f.label "Poskod" %>
-										<%= f.number_field :shipping_poskod , :class => "form-control" %>
-									</div>
-									<div class="form-group">
-										<%= f.label "State" %>
-										<%= f.text_field :shipping_state , :class => "form-control" %>
-									</div>
-								<%= f.submit  "Submit" , :class => "btn btn-success col-xs-12" , :style => "margin-bottom:10px;"%>
-								  <h6>By clicking submit you agree that all the information provided below is correct.</h6>
-								</form>
-							</div>
-							<% end %>
+										<div id="paymentmethod" class="col-xs-12">
+											<h5><b>Payment Method</b></h5>
+											<hr style="margin-top:0px; margin-bottom:0px;">
+											<h5>
+												<%= @company.payment_method %>
+											</h5>
+										</div>
 
-							
-                        	<% end %>  
-					</div>
+										<div class="col-xs-12" id="itemInfo" style="background-color:lightgrey;">
+											<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+												<h5>Items</h5>
+											</div>
+											<div class="col-xs-4">
+												<h5 style="text-align: right;">Amount</h5>
+											</div>
+										</div>
+										<div class="col-xs-12" id="productInfo">
+											<%= form_for @receipt , url: receipt_index_path(@form) do |f| %>
+												<%=  f.hidden_field :form_id %>
+													<% counter = 0 %>
+														<%=  f.fields_for :productreceipt do |p| %>
+															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+																<%=  p.hidden_field :product_id %>
+																<h5>
+																	<%= p.object.name %>
+																</h5>
+
+																<h5>
+																	<%= p.object.desc %>
+																</h5>
+															</div>
+															<div class="col-xs-4">
+																<h5 style="text-align: right;">RM<span class="price"><%= p.object.price %></span></h5>
+															</div>
+															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;  ">
+																<h5>Quantity: </h5>
+																<%= p.number_field :qty , :class => "qty", :data => p.object.price, :sub => counter %>
+															</div>
+															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+																<h5 style="text-align:right;">Subtotal:</h5>
+															</div>
+															<div class="col-xs-4">
+																<h5 style="text-align: right;"><b>RM<span id = <%= counter %> ></span></b></h5>
+															</div>
+															<div class="col-xs-12" style="padding-left:0px; padding-right:0px;">
+																<hr>
+															</div>
+															<% counter = counter + 1 %>
+																<% end %>
+																	<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+																		<h5>Shipping:</h5>
+																	</div>
+																	<div class="col-xs-4">
+																		<h5 style="text-align: right;"><b>RM<span id = "shippingprice">52.58</span></b></h5>
+																	</div>
+																	<div class="col-xs-12" style="padding-left:0px; padding-right:0px;">
+																		<hr>
+																	</div>
+																	<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+																		<h3 style="text-align:right;"><b>Total:</b></h3>
+																	</div>
+																	<div class="col-xs-4">
+																		<h3 style="text-align: right;"><b>RM<span id = "total">0.00</span></b></h3>
+																	</div>
+										</div>
+										<% if @receipt.status == "Waiting Payment" %>
+											<div id="shipto" class="col-xs-12" style="background-color:#298fca; color:white;">
+												<h3 style="text-align:center;">Shipment Details</h3>
+												<form action="." method="post" enctype="multipart/form-data">
+													<div class="form-group">
+														<%= f.label "Customer Name" %>
+															<%= f.text_field :customer_name , :class => "form-control" %>
+													</div>
+													<div class="form-group">
+														<%= f.label "Customer Email" %>
+															<%= f.email_field :customer_email , :class => "form-control" %>
+													</div>
+													<div class="form-group">
+														<%= f.label "Customer Phone" %>
+															<%= f.text_field :customer_phone , :class => "form-control" %>
+													</div>
+
+													<div class="form-group">
+														<%= f.label "Address" %>
+															<%= f.text_area :shipping_address , :class => "form-control" %>
+													</div>
+													<div class="form-group">
+														<%= f.label "Poskod" %>
+															<%= f.number_field :shipping_poskod , :class => "form-control" %>
+													</div>
+													<div class="form-group">
+														<%= f.label "State" %>
+															<%= f.text_field :shipping_state , :class => "form-control" %>
+													</div>
+													<%= f.submit  "Submit" , :class => "btn btn-success col-xs-12" , :style => "margin-bottom:10px;"%>
+														<h6>By clicking submit you agree that all the information provided below is correct.</h6>
+												</form>
+											</div>
+											<% end %>
+									<% end %>
 			</div>
 		</div>
 	</div>
+</div>

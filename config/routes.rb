@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   get 'welcome/index'
   get 'dashboard', to: 'dashboard#show'
-  get 'view/:id', to: 'receipt#view', :as => "form_view"
+  get 'view/form/:id', to: 'receipt#view', :as => "form_view"
+  get 'view/receipt/:id', to: 'receipt#receipt_view', :as => "receipt_view"
   resources :company, :path => "dashboard/company"
   resources :product, :path => "dashboard/product"
   resources :form, :path => "dashboard/form"
