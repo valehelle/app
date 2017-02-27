@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#show'
   get 'view/form/:id', to: 'receipt#view', :as => "form_view"
   get 'view/receipt/:id', to: 'receipt#receipt_view', :as => "receipt_view"
+  patch 'view/receipt/payment_update/:id', to: 'receipt#payment_update', :as => "payment_update"
   resources :company, :path => "dashboard/company"
   resources :product, :path => "dashboard/product"
   resources :form, :path => "dashboard/form"

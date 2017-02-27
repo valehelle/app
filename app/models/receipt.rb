@@ -4,6 +4,7 @@ class Receipt < ApplicationRecord
     belongs_to :form, optional: true
     has_many :productreceipt
     accepts_nested_attributes_for :productreceipt, reject_if: proc { |attributes| attributes['name'].blank? }
+    mount_uploader :pay_img, PaymentUploader
 
     private
     def set_ref_id

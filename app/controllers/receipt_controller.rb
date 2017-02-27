@@ -15,6 +15,15 @@ class ReceiptController < ApplicationController
         end
     end
 
+    def payment_update
+        @receipt = Receipt.find_by(ref_id: params[:id])
+        @receipt.update_attributes(update_params)
+        @receipt.status = "Waiting Shipment"
+        @receipt.save!
+        
+        redirect_to receipt_view_path(@receipt.ref_id)
+    end
+
     def view
         @form = Form.find_by(ref_id: params[:id])
         @company = @form.user.company
@@ -22,14 +31,18 @@ class ReceiptController < ApplicationController
         @form.product.each do |product|
             @receipt.productreceipt.build(name: product.name,price: product.price,desc: product.desc, product_id:product.id)
         end
+        @isreceipt = false
     end
 
     def receipt_view
-
+        @receipt = Receipt.find_by(ref_id: params[:id])
+        @form = Form.find_by(id: @receipt.form_id)
+        @company = @form.user.company
+        @isreceipt = true
+        render :template => "receipt/view"
     end
 
     def create
-
         @form = Form.find_by(ref_id: params[:receipt][:form_id])
         params[:receipt][:productreceipt_attributes].values.each do |productreceipt|
             @product = @form.product.find_by(id: productreceipt[:product_id])
@@ -45,10 +58,20 @@ class ReceiptController < ApplicationController
             
         @receipt.save!
 
-        @form.product.zip(params[:receipt][:productreceipt_attributes].values).each do |product, productreceipt|
-            if !productreceipt[:qty].blank?
-                @receipt.productreceipt.build(name: product.name, qty: productreceipt[:qty])
-                @receipt.save!
+        params[:receipt][:productreceipt_attributes].values.each do |productreceipt|
+            @product = @form.product.find_by(id: productreceipt[:product_id])
+            puts @product.id
+            puts productreceipt[:qty].blank?
+            if !(productreceipt[:qty].blank?) && (Integer(productreceipt[:qty]) > 0)
+                @productreceipt = @receipt.productreceipt.build(productreceipt)
+                @productreceipt.name = @product.name
+                @productreceipt.desc = @product.desc
+                @productreceipt.price = @product.price
+                @productreceipt.user_id = @product.user_id
+                subtotal = @productreceipt.price * @productreceipt.qty
+                @productreceipt.subtotal = subtotal
+                @productreceipt.save!
+
                 @product = @form.product.find_by(id: productreceipt[:product_id])
                 @product.stock = @product.stock - Integer(productreceipt[:qty])
                 @product.save!
@@ -64,9 +87,13 @@ class ReceiptController < ApplicationController
         params.require(:receipt).permit(:name, productreceipt_attributes: [:name, :id, :user_id, :desc, :price, :qty ], user_attributes: [:id], form_attributes: [:id])
     end
 
+    def update_params
+        params.require(:receipt).permit(:pay_img, :pay_txt)
+    end
+
     def resolve_layout
         case action_name
-        when "view"
+        when "view","receipt_view"
             "empty"
         else
             "application"

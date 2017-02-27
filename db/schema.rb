@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223141613) do
+ActiveRecord::Schema.define(version: 20170227152045) do
 
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
@@ -48,11 +48,12 @@ ActiveRecord::Schema.define(version: 20170223141613) do
     t.string   "name"
     t.string   "desc"
     t.integer  "price"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "qty",        default: 0
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "qty",                                default: 0
     t.integer  "user_id"
     t.integer  "product_id"
+    t.decimal  "subtotal",   precision: 8, scale: 2, default: "0.0"
   end
 
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -74,14 +75,17 @@ ActiveRecord::Schema.define(version: 20170223141613) do
     t.string   "shipping_country"
     t.string   "customer_email"
     t.string   "customer_phone"
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
+    t.datetime "created_at",                                                                         null: false
+    t.datetime "updated_at",                                                                         null: false
     t.integer  "user_id"
     t.string   "ref_id"
-    t.string   "status",                                   default: "Waiting Payment"
+    t.string   "status",                                                 default: "Waiting Payment"
     t.string   "customer_name"
-    t.decimal  "shipping_price",   precision: 8, scale: 2, default: "0.0"
+    t.decimal  "shipping_price",                 precision: 8, scale: 2, default: "0.0"
     t.string   "shipping_state"
+    t.decimal  "total",                          precision: 8, scale: 2, default: "0.0"
+    t.string   "pay_img"
+    t.text     "pay_txt",          limit: 65535
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

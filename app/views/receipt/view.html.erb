@@ -53,12 +53,14 @@
 						<img src="/media/{{receipt.paymentproof}}" class="img-responsive" alt="Cinque Terre" width="auto" height="13vh">
 					</div>
 					<% end %>
-						<% if @receipt.status == "Shipped" %>
-							<div id="receiptstatus" class="col-xs-12 col-md-12" style="margin-bottom:10px; margin-top:10px;">
-								<div class="col-xs-8 col-md-4" style="background-color:#4CAF50;">
-									<h5 style="color:white;text-align:center;"><b><%= @receipt.status %></b></h5>
-								</div>
+					<% if @isreceipt == true %>
+						<div id="receiptstatus" class="col-xs-12 col-md-12" style="margin-bottom:10px; margin-top:10px;">
+							<div class="col-xs-8 col-md-4" style="background-color:#4CAF50;">
+								<h5 style="color:white;text-align:center;"><b><%= @receipt.status %></b></h5>
 							</div>
+						</div>
+					<% end %>
+						<% if @receipt.status == "Shipped" %>
 							<div id="shipped" class="col-xs-12 col-md-12">
 								<h5>
 									<%= @receipt.courrier %>
@@ -68,32 +70,6 @@
 								</h5>
 							</div>
 							<% end %>
-
-								<% if false %>
-									<div id="paymentmethod" class="col-xs-12">
-										<h5><b>Update Shipment</b></h5>
-										<hr style="margin-top:0px; margin-bottom:0px;">
-										<form action="/dashboard/receipt/shipping/update/{{receipt.keyid}}/" method="post">
-											{% csrf_token %}
-											<div class="form-group">
-												<label for="id_name">Shipment Courrier:</label>
-												<select class="form-control" name="shippingcourrier">
-										  <option value="volvo">Pos Laju</option>
-										  <option value="saab">Ninjavan</option>
-										  <option value="mercedes">Pos Ekspress</option>
-										  <option value="audi">COD</option>
-										</select>
-											</div>
-											<div class="form-group">
-												<label for="id_tracking">Tracking Number:</label>
-												<input id="id_tracking" maxlength="30" name="shippingnumber" type="text" required="" class="form-control">
-											</div>
-											<button type="submit" class="btn btn-success col-xs-12" style="margin-bottom:10px;">Submit</button>
-											<h6>By clicking submit you agree that all the information provided below is correct.</h6>
-										</form>
-									</div>
-									<% end %>
-
 										<div id="paymentmethod" class="col-xs-12">
 											<h5><b>Payment Method</b></h5>
 											<hr style="margin-top:0px; margin-bottom:0px;">
@@ -101,7 +77,46 @@
 												<%= @company.payment_method %>
 											</h5>
 										</div>
-
+										<% if @isreceipt  == true and @receipt.status == "Waiting Payment"%>
+											<%= form_for @receipt, url: payment_update_path(@receipt.ref_id) , html: { multipart: true } do |f|  %>
+												<div class = "form-group">
+														<%= f.label "Image" %>
+														<%= f.file_field :pay_img %>
+														<%= f.label "Text" %>
+														<%= f.text_field :pay_txt, :class => "form-control" %>
+														<%= f.submit "Edit" , :class => "btn btn-success", :style => "margin-top:10px;" %>
+												</div>
+											<% end %>
+										<% else %>
+											<%= image_tag @receipt.pay_img if @receipt.pay_img? %>
+										<% end %>
+									<% if @receipt.status == "Waiting Payment" and @isreceipt == true %>
+										<div id="paymentmethod" class="col-xs-12">
+											<h5><b>Shipping Information</b></h5>
+											<hr style="margin-top:0px; margin-bottom:0px;">
+											<h5>
+												<%= @receipt.customer_name %>
+											</h5>
+											<h5>
+												<%= @receipt.customer_email %>
+											</h5>
+											<h5>
+												<%= @receipt.customer_phone %>
+											</h5>
+											<h5>
+												<%= @receipt.shipping_address %>
+											</h5>
+											<h5>
+												<%= @receipt.shipping_poskod %>
+											</h5>
+											<h5>
+												<%= @receipt.shipping_state %>
+											</h5>
+											<h5>
+												<%= @receipt.shipping_country %>
+											</h5>
+										</div>
+									<% end %>
 										<div class="col-xs-12" id="itemInfo" style="background-color:lightgrey;">
 											<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
 												<h5>Items</h5>
@@ -130,17 +145,30 @@
 															</div>
 															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;  ">
 																<h5>Quantity: </h5>
-																<%= p.number_field :qty , :class => "qty", :data => p.object.price, :sub => counter %>
+																	<% if @isreceipt == true %>
+																		<span><%= p.object.qty %></span>
+																	<% elsif %>
+																		<%= p.number_field :qty , :class => "qty", :data => p.object.price, :sub => counter %>
+																	<% end %>
+																
 															</div>
 															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
 																<h5 style="text-align:right;">Subtotal:</h5>
 															</div>
 															<div class="col-xs-4">
-																<h5 style="text-align: right;"><b>RM<span id = <%= counter %> ></span></b></h5>
+																<h5 style="text-align: right;"><b>RM
+																		<% if @isreceipt == true %>
+																		<span><%= p.object.subtotal %> </span>
+																		<% elsif %>
+																		<span id = <%= counter %> ></span>
+																		<% end %>
+																	</b>
+																</h5>
 															</div>
 															<div class="col-xs-12" style="padding-left:0px; padding-right:0px;">
 																<hr>
 															</div>
+															
 															<% counter = counter + 1 %>
 																<% end %>
 																	<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
@@ -156,13 +184,16 @@
 																		<h3 style="text-align:right;"><b>Total:</b></h3>
 																	</div>
 																	<div class="col-xs-4">
-																		<h3 style="text-align: right;"><b>RM<span id = "total">0.00</span></b></h3>
+																		<% if @isreceipt == true %>
+																			<h3 style="text-align: right;"><b>RM<span id = "total"><%= @receipt.total %></span></b></h3>
+																		<% elsif %>
+																			<h3 style="text-align: right;"><b>RM<span id = "total">0.00</span></b></h3>
+																		<% end %>
 																	</div>
 										</div>
-										<% if @receipt.status == "Waiting Payment" %>
+										<% if @isreceipt == false %>
 											<div id="shipto" class="col-xs-12" style="background-color:#298fca; color:white;">
 												<h3 style="text-align:center;">Shipment Details</h3>
-												<form action="." method="post" enctype="multipart/form-data">
 													<div class="form-group">
 														<%= f.label "Customer Name" %>
 															<%= f.text_field :customer_name , :class => "form-control" %>
@@ -190,7 +221,6 @@
 													</div>
 													<%= f.submit  "Submit" , :class => "btn btn-success col-xs-12" , :style => "margin-bottom:10px;"%>
 														<h6>By clicking submit you agree that all the information provided below is correct.</h6>
-												</form>
 											</div>
 											<% end %>
 									<% end %>
