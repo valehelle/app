@@ -15,13 +15,34 @@ class ReceiptController < ApplicationController
         end
     end
 
+    def show
+        @receipt = Receipt.find_by(id: params[:id])
+    end
+
+    def destroy
+        current_user.receipt.find(params[:id]).destroy
+        flash[:success] = "Receipt deleted"
+        redirect_to receipt_index_path
+    end
+
     def payment_update
         @receipt = Receipt.find_by(ref_id: params[:id])
         @receipt.update_attributes(update_params)
-        @receipt.status = "Waiting Shipment"
+        @receipt.status = "Buyer Paid"
         @receipt.save!
         
         redirect_to receipt_view_path(@receipt.ref_id)
+    end
+
+    def shipment_update
+        puts params[:id]
+        @receipt = Receipt.find_by(id: params[:id])
+        @receipt.update_attributes(update_params)
+        @receipt.status = "Shipped"
+        @receipt.save!
+
+        flash[:success] = "Receipt Shipment Updated"
+        redirect_to receipt_path(@receipt.id)
     end
 
     def view
@@ -55,13 +76,11 @@ class ReceiptController < ApplicationController
         end
 
         @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.id, customer_name: params[:receipt][:customer_name], customer_email: params[:receipt][:customer_email],customer_phone: params[:receipt][:customer_phone],shipping_address: params[:receipt][:shipping_address] ,shipping_state: params[:receipt][:shipping_state], shipping_poskod: params[:receipt][:shipping_poskod])
-            
-        @receipt.save!
+
+        total = 0
 
         params[:receipt][:productreceipt_attributes].values.each do |productreceipt|
             @product = @form.product.find_by(id: productreceipt[:product_id])
-            puts @product.id
-            puts productreceipt[:qty].blank?
             if !(productreceipt[:qty].blank?) && (Integer(productreceipt[:qty]) > 0)
                 @productreceipt = @receipt.productreceipt.build(productreceipt)
                 @productreceipt.name = @product.name
@@ -69,6 +88,7 @@ class ReceiptController < ApplicationController
                 @productreceipt.price = @product.price
                 @productreceipt.user_id = @product.user_id
                 subtotal = @productreceipt.price * @productreceipt.qty
+                total = total + subtotal
                 @productreceipt.subtotal = subtotal
                 @productreceipt.save!
 
@@ -76,6 +96,8 @@ class ReceiptController < ApplicationController
                 @product.stock = @product.stock - Integer(productreceipt[:qty])
                 @product.save!
             end
+        @receipt.total = total
+        @receipt.save!
         end
         redirect_to receipt_view_path(@receipt.ref_id)
     end
@@ -88,7 +110,7 @@ class ReceiptController < ApplicationController
     end
 
     def update_params
-        params.require(:receipt).permit(:pay_img, :pay_txt)
+        params.require(:receipt).permit(:pay_img, :pay_txt, :shipping_number)
     end
 
     def resolve_layout

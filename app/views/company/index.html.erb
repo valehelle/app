@@ -1,4 +1,6 @@
+<div class = "col-xs-12 col-md-4">
 <h2>COMPANY</h2>
+<%= link_to 'edit', edit_company_path(@company), :class =>"btn btn-success" %>
 <h3>Name:</h3>
 <h3><%= @company.name %></h3>
 <h3>Address:</h3>
@@ -15,7 +17,7 @@
 <h3><%= @company.phone %></h3>
 <h3>Payment Method:</h3>
 <h3><%= @company.payment_method %></h3>
-<h3>Banner</h3>
-<h3><%= image_tag @company.banner if @company.banner? %></h3>
+<h3>Banner: </h3>
+<%= image_tag @company.banner, :class =>"img-responsive" if @company.banner? %>
+</div>
 
-<%= link_to 'edit', edit_company_path(@company) %>

@@ -1,8 +1,36 @@
 <h1>PRODUCT</h1>
 <% if @products.exists? %>
-    <% @products.each do |product| %>
-    <%= link_to product.name, product_path(product)%> <br>
-    <% end %>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Desc</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <% @products.each do |product| %>
+            <tr>
+                <td>
+                    <%= product.name %>
+                </td>
+                <td>
+                    <%= product.desc %>
+                </td>
+                <td>
+                    <%= product.stock %>
+                </td>
+                <td>
+                    <%= product.price %>
+                </td>
+            </tr>
+            <% end %>
+
+
+    </tbody>
+</table>
 <% else %>
     <p>DOES NOT EXIST</p>
 <% end %>

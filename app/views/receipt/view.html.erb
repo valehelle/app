@@ -24,35 +24,6 @@
 						</h5>
 					</div>
 				</div>
-				<% if @receipt.status == "Buyer Paid" || @receipt.status == "Shipped"  %>
-					<div id="shipto" class="col-xs-12">
-						<h5><b>Ship To</b></h5>
-						<hr style="margin-top:0px; margin-bottom:0px;">
-						<h5>
-							<%= @receipt.customer_name %>
-						</h5>
-						<h5>
-							<%= @receipt.customer_email %>
-						</h5>
-						<h5>
-							<%= @receipt.customer_phone %>
-						</h5>
-						<h5>
-							<%= @receipt.customer_address %>,</h5>
-						<h5>
-							<%= @receipt.customer_poskod %>,
-								<%= @receipt.customer_district %>,</h5>
-						<h5>
-							<%= @receipt.customer_state %>
-						</h5>
-
-					</div>
-					<div id="proofpayment" class="col-xs-12">
-						<h5><b>Proof of payment</b></h5>
-						<hr style="margin-top:0px; margin-bottom:0px;">
-						<img src="/media/{{receipt.paymentproof}}" class="img-responsive" alt="Cinque Terre" width="auto" height="13vh">
-					</div>
-					<% end %>
 					<% if @isreceipt == true %>
 						<div id="receiptstatus" class="col-xs-12 col-md-12" style="margin-bottom:10px; margin-top:10px;">
 							<div class="col-xs-8 col-md-4" style="background-color:#4CAF50;">
@@ -79,16 +50,31 @@
 										</div>
 										<% if @isreceipt  == true and @receipt.status == "Waiting Payment"%>
 											<%= form_for @receipt, url: payment_update_path(@receipt.ref_id) , html: { multipart: true } do |f|  %>
-												<div class = "form-group">
-														<%= f.label "Image" %>
-														<%= f.file_field :pay_img %>
-														<%= f.label "Text" %>
-														<%= f.text_field :pay_txt, :class => "form-control" %>
-														<%= f.submit "Edit" , :class => "btn btn-success", :style => "margin-top:10px;" %>
+												<div class = "col-xs-12">
+													<h5><b>Proof of payment</b></h5>
+													<hr style="margin-top:0px; margin-bottom:0px;">
+													<div class = "col-xs-12 col-md-6" style = "padding-left:0;px">
+														<div class = "form-group">
+																<%= f.label "Image" %>
+																<%= f.file_field :pay_img %>
+																<%= f.label "Text" %>
+																<%= f.text_area :pay_txt, :class => "form-control" %>
+																<%= f.submit "Upload" , :class => "btn btn-success", :style => "margin-top:10px;" %>
+														</div>
+													</div>
 												</div>
 											<% end %>
 										<% else %>
-											<%= image_tag @receipt.pay_img if @receipt.pay_img? %>
+										<div id="paymentproof" class="col-xs-12">
+											<h5><b>Proof of payment</b></h5>
+											<hr style="margin-top:0px; margin-bottom:0px;">
+											<hr style="margin-top:0px; ">
+												<%= image_tag @receipt.pay_img if @receipt.pay_img? %>
+												<% if @receipt.pay_txt? %>
+													<h5><%= @receipt.pay_txt %></h5>
+												<% end %>
+										</div>
+											
 										<% end %>
 									<% if @receipt.status == "Waiting Payment" and @isreceipt == true %>
 										<div id="paymentmethod" class="col-xs-12">
