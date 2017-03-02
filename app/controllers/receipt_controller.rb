@@ -1,17 +1,19 @@
 class ReceiptController < ApplicationController
     layout :resolve_layout
+    before_action :authenticate_user!, except: [:payment_update,:view,:receipt_view,:create]
 
     def index
         status = params[:status]
+        per_page = 20
         if(status == "1")
-            @receipts = current_user.receipt.where(status: "Waiting Payment")
+            @receipts = current_user.receipt.where(status: "Waiting Payment").paginate(:page => params[:page], :per_page => per_page).order('id DESC')
         elsif (status == "2")
-            @receipts = current_user.receipt.where(status: "Buyer Paid")
+            @receipts = current_user.receipt.where(status: "Buyer Paid").paginate(:page => params[:page], :per_page => per_page).order('id DESC')
         elsif (status == "3")
             puts "helo"
-            @receipts = current_user.receipt.where(status: "Shipped")
+            @receipts = current_user.receipt.where(status: "Shipped").paginate(:page => params[:page], :per_page => per_page).order('id DESC')
         else
-            @receipts = current_user.receipt.all
+            @receipts = current_user.receipt.all.paginate(:page => params[:page], :per_page => per_page).order('id DESC')
         end
     end
 
@@ -35,7 +37,6 @@ class ReceiptController < ApplicationController
     end
 
     def shipment_update
-        puts params[:id]
         @receipt = Receipt.find_by(id: params[:id])
         @receipt.update_attributes(update_params)
         @receipt.status = "Shipped"
@@ -96,9 +97,10 @@ class ReceiptController < ApplicationController
                 @product.stock = @product.stock - Integer(productreceipt[:qty])
                 @product.save!
             end
-        @receipt.total = total
-        @receipt.save!
+            @receipt.total = total
+            @receipt.save!
         end
+        CustomerMailer.receipt_email("hazmiirfan92@gmail.com").deliver_now
         redirect_to receipt_view_path(@receipt.ref_id)
     end
 

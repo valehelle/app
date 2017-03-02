@@ -1,6 +1,8 @@
 class FormController < ApplicationController
+    before_action :authenticate_user!
     def index
-        @forms = current_user.form.all
+        per_page = 20
+        @forms = current_user.form.all.paginate(:page => params[:page], :per_page => per_page).order('id DESC')
     end
 
     def show
@@ -40,6 +42,7 @@ class FormController < ApplicationController
             product.user_id = current_user.id
             product.save!
         end
+        flash[:success] = "Form Updated"
         redirect_to form_path(@form.id)
     end
 

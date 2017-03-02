@@ -2,7 +2,8 @@ class ProductController < ApplicationController
     before_action :authenticate_user!
     
     def index
-        @products = current_user.product.all
+        per_page = 20
+        @products = current_user.product.all.paginate(:page => params[:page], :per_page => per_page).order('id DESC')
     end
     
     def show
