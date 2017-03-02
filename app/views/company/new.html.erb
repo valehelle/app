@@ -1,11 +1,25 @@
-<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-
-<h1>New</h1>
+<h1>Company</h1>
 
 <%= form_for :company, url: company_index_path do |f| %>
-    <p>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-        <%= f.submit %>
-    </p>
+        <div class = "form-group">
+                <%= f.label :name %>
+                <%= f.text_field :name, :class => "form-control" %>
+                <%= f.label :address %>
+                <%= f.text_area :address, :class => "form-control" %>
+                <%= f.label :state %>
+                <%= f.text_field :state, :class => "form-control" %>
+                <%= f.label :poskod %>
+                <%= f.number_field :poskod, :class => "form-control" %>
+                <%= f.label :country %>
+                <%= f.text_field :country, :class => "form-control" %>
+                <%= f.label :email %>
+                <%= f.text_field :email, :class => "form-control" %>
+                <%= f.label :phone %>
+                <%= f.text_field :phone, :class => "form-control" %>
+                <%= f.label :payment_method %>
+                <%= f.text_area :payment_method, :class => "form-control" %>
+                <%= f.label :banner %>
+                <%= f.file_field :banner %>
+                <%= f.submit "Add" , :class => "btn btn-success", :style => "margin-top:10px;" %>
+        </div>
 <% end %>

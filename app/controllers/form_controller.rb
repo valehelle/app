@@ -10,14 +10,18 @@ class FormController < ApplicationController
     end
 
     def new()
-        @form = current_user.form.build
+        if Company.exists?(user_id: current_user.id)
+            @form = current_user.form.build
+        else
+            flash[:success] = "You need to add Company details first."
+            redirect_to company_index_path()
+        end
     end
     def create
         @form = current_user.form.build(form_params)
         if @form.save
             @products = @form.product.where(user_id: nil)
             @products.each do |product|
-                puts product.name
                 product.user_id = current_user.id
                 product.form_id = @form.id
                 product.save!
