@@ -76,13 +76,16 @@ class ReceiptController < ApplicationController
             end
         end
 
-        @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.id, customer_name: params[:receipt][:customer_name], customer_email: params[:receipt][:customer_email],customer_phone: params[:receipt][:customer_phone],shipping_address: params[:receipt][:shipping_address] ,shipping_state: params[:receipt][:shipping_state], shipping_poskod: params[:receipt][:shipping_poskod])
+        @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.id, customer_name: params[:receipt][:customer_name], customer_email: params[:receipt][:customer_email],customer_phone: params[:receipt][:customer_phone],shipping_address: params[:receipt][:shipping_address] ,shipping_state: params[:receipt][:shipping_state], shipping_poskod: params[:receipt][:shipping_poskod], shipping_city: params[:receipt][:shipping_city], shipping_country: params[:receipt][:shipping_country])
 
         total = 0
+
+        isproduct = false
 
         params[:receipt][:productreceipt_attributes].values.each do |productreceipt|
             @product = @form.product.find_by(id: productreceipt[:product_id])
             if !(productreceipt[:qty].blank?) && (Integer(productreceipt[:qty]) > 0)
+                isproduct = true
                 @productreceipt = @receipt.productreceipt.build(productreceipt)
                 @productreceipt.name = @product.name
                 @productreceipt.desc = @product.desc
@@ -98,10 +101,19 @@ class ReceiptController < ApplicationController
                 @product.save!
             end
             @receipt.total = total
-            @receipt.save!
         end
-        CustomerMailer.receipt_email("hazmiirfan92@gmail.com").deliver_now
-        redirect_to receipt_view_path(@receipt.ref_id)
+        if (isproduct)
+            if(@receipt.save)
+                CustomerMailer.receipt_email("hazmiirfan92@gmail.com").deliver_now
+                redirect_to receipt_view_path(@receipt.ref_id)
+            elsif
+                flash[:success] = "Please fill in all the required details"
+                redirect_to form_view_path(@form.ref_id)
+            end
+        elsif
+            flash[:success] = "You must select at least one product"
+            redirect_to form_view_path(@form.ref_id)
+        end
     end
 
     

@@ -1,5 +1,6 @@
 class Receipt < ApplicationRecord
     before_create :set_ref_id
+    validates_presence_of :customer_name, :shipping_address, :shipping_poskod, :shipping_city, :shipping_country, :customer_email, :customer_phone
     belongs_to :user, optional: true
     belongs_to :form, optional: true
     has_many :productreceipt

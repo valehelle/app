@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302100730) do
+ActiveRecord::Schema.define(version: 20170305143548) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -46,9 +46,7 @@ ActiveRecord::Schema.define(version: 20170302100730) do
   create_table "companies", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
     t.text     "address",        limit: 65535
-    t.string   "district"
     t.string   "state"
-    t.integer  "poskod"
     t.string   "country"
     t.string   "email"
     t.string   "phone"
@@ -57,6 +55,8 @@ ActiveRecord::Schema.define(version: 20170302100730) do
     t.integer  "user_id"
     t.text     "payment_method", limit: 65535
     t.string   "banner"
+    t.string   "city"
+    t.string   "poskod"
   end
 
   create_table "formproducts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 20170302100730) do
   create_table "receipts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "form_id"
     t.string   "shipping_address"
-    t.integer  "shipping_poskod"
     t.string   "shipping_country"
     t.string   "customer_email"
     t.string   "customer_phone"
@@ -118,6 +117,8 @@ ActiveRecord::Schema.define(version: 20170302100730) do
     t.string   "pay_img"
     t.text     "pay_txt",          limit: 65535
     t.string   "shipping_number"
+    t.string   "shipping_city"
+    t.string   "shipping_poskod"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
