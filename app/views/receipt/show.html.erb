@@ -1,64 +1,34 @@
 <h2>Receipt</h2>
 <%= link_to 'View' , receipt_view_path(@receipt.ref_id), :class => "btn btn-primary" %>
 <%= link_to 'Delete' , @receipt , method: :delete, data: {confirm: "Are you sure?"} , :class => "btn btn-danger" %>
-
-        <% if  @receipt.status == "Buyer Paid" %>
-            <%= form_for @receipt, url: shipment_update_path(@receipt) do |f|  %>
-                    <h5><b>Update Shipment</b></h5>
-                    <hr style="margin-top:0px; margin-bottom:0px;">
-                    <div class = "col-xs-12 col-md-12">
-                    <div class="col-xs-12 col-md-4" style="padding-left:0px;">
-                        <div class="form-group">
-                            <%= f.label "Tracking Number" %>
-                            <%= f.text_field :shipping_number, :class => "form-control" %>
-                            <%= f.submit "Update" , :class => "btn btn-success", :style => "margin-top:10px;" %>
-                        </div>
-                    </div>
-                    </div>
-            <% end %>
-        <% end %>
-
-                        <h3>Name:
-                            <%= @receipt.customer_name %>
-                        </h3>
-                        <h3>Shipping Address:
-                            <%= @receipt.shipping_address %>
-                        </h3>
-                        <h3>Poskod:
-                            <%= @receipt.shipping_poskod %>
-                        </h3>
-                        <h3>Country:
-                            <%= @receipt.shipping_country %>
-                        </h3>
-                        <h3>State:
-                            <%= @receipt.shipping_state %>
-                        </h3>
-                        <h3>Phone:
-                            <%= @receipt.customer_phone %>
-                        </h3>
-                        <h3>Status:
-                            <%= @receipt.status %>
-                        </h3>
-                        <% if @receipt.status == "Shipped" %>
-                        <h3>
-                            Tracking Number :
-                            <%= @receipt.shipping_number %>
-                        </h3>
-                        <% end %>
-                        <h3>Shipping Price:
-                            <%= @receipt.shipping_price %>
-                        </h3>
-                        <h3>Total Price:
-                            <%= @receipt.total %>
-                        </h3>
-                        <h3>
-                            <%= image_tag @receipt.pay_img if @receipt.pay_img? %>
-                        </h3>
-                        <h3>Text Proof of payment:
-                            <%= @receipt.pay_txt %>
-                        </h3>
-
-
+<br>
+<br>
+<div class = "col-xs-12 col-md-8" style = "padding-left:0px;">
+        <div class = " col-xs-12 col-md-12 " style = "background-color: white; border: 1px solid #d6dadc;" >
+            <h4><label>Customer Information</label></h4>
+            <hr style="margin-top:0px; margin-bottom:10px;">
+            <h4>Name:
+                <%= @receipt.customer_name %>
+            </h4>
+            <h4>Address:
+                <%= @receipt.shipping_address %>
+            </h4>
+            <h4>Poskod:
+                <%= @receipt.shipping_poskod %>
+            </h4>
+            <h4>Country:
+                <%= @receipt.shipping_country %>
+            </h4>
+            <h4>State:
+                <%= @receipt.shipping_state %>
+            </h4>
+            <h4>Phone:
+                <%= @receipt.customer_phone %>
+            </h4>
+        </div>
+        <div class = " col-xs-12 col-md-12" style = "background-color: white; border: 1px solid #d6dadc; margin-top:10px; margin-bottom:10px;" >
+            <h4><label>Receipt Information</label></h4>
+            <hr style="margin-top:0px; margin-bottom:10px;">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -90,3 +60,42 @@
 
                             </tbody>
                         </table>
+</div>
+</div>
+        <% if  @receipt.status == "Buyer Paid" %>
+        <div class = " col-xs-12 col-md-3 col-md-push-1" style = "background-color: white; border: 1px solid #d6dadc;" >
+            <%= form_for @receipt, url: shipment_update_path(@receipt) do |f|  %>
+                    <h4><%= f.label "Tracking Number" %></h4>
+                    <hr style="margin-top:0px; margin-bottom:10px;">
+                    <div class="col-xs-12 col-md-12" style="padding-left:0px;">
+                        <div class="form-group">
+                            <%= f.text_field :shipping_number, :class => "form-control" %>
+                            <%= f.submit "Update" , :class => "btn btn-success", :style => "margin-top:10px;" %>
+                        </div>
+                    </div>
+            <% end %>
+        </div>
+        <% end %>
+        <div class = " col-xs-12 col-md-3  col-md-push-1" style = "background-color: white; border: 1px solid #d6dadc; margin-top:10px;" >
+            <h4><label>Receipt Information</label></h4>
+            <hr style="margin-top:0px; margin-bottom:10px;">
+                        <h4>Status:
+                            <%= @receipt.status %>
+                        </h4>
+                        <% if @receipt.status == "Shipped" %>
+                            <h4>
+                                Tracking Number :
+                                <%= @receipt.shipping_number %>
+                            </h4>
+                        <% end %>
+                        <h4>Total Price:
+                            RM<%= @receipt.total %>
+                        </h4>
+                        <% if @receipt.pay_img? %>
+                            <h4>Image Proof:</h4>
+                            <%= image_tag @receipt.pay_img , :class => "img-responsive" %>
+                        <% end %>
+                        <h4>Text proof:
+                            <%= @receipt.pay_txt %>
+                        </h4>
+        </div>

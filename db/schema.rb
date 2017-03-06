@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170305143548) do
+ActiveRecord::Schema.define(version: 20170306134948) do
 
   create_table "active_admin_comments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "namespace"
@@ -79,24 +79,26 @@ ActiveRecord::Schema.define(version: 20170305143548) do
     t.string   "name"
     t.string   "desc"
     t.integer  "price"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
-    t.integer  "qty",                                default: 0
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.integer  "qty",                                    default: 0
     t.integer  "user_id"
     t.integer  "product_id"
-    t.decimal  "subtotal",   precision: 8, scale: 2, default: "0.0"
+    t.decimal  "subtotal",       precision: 8, scale: 2, default: "0.0"
+    t.decimal  "shipping_price", precision: 8, scale: 2, default: "0.0"
   end
 
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name"
-    t.text     "desc",       limit: 65535
-    t.decimal  "price",                    precision: 8, scale: 2, default: "0.0"
-    t.integer  "stock",                                            default: 0
+    t.text     "desc",           limit: 65535
+    t.decimal  "price",                        precision: 8, scale: 2, default: "0.0"
+    t.integer  "stock",                                                default: 0
     t.boolean  "editable"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
     t.integer  "user_id"
     t.integer  "form_id"
+    t.decimal  "shipping_price",               precision: 8, scale: 2, default: "0.0"
   end
 
   create_table "receipts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

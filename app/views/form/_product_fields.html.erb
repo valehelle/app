@@ -7,6 +7,8 @@
     <%= f.number_field :price , :class => "form-control",:step => 0.01 %>
     <%= f.label "Product Stock" %>
     <%= f.number_field :stock , :class => "form-control" %>
+    <%= f.label "Shipping price per Product" %>
+    <%= f.number_field :shipping_price , :class => "form-control" %>
     <%= f.check_box :_destroy %>
     <%= f.label :_destroy, "Remove Product"%>
 </div>

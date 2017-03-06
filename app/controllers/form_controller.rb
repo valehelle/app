@@ -58,6 +58,6 @@ class FormController < ApplicationController
 
     private 
     def form_params
-        params.require(:form).permit(:name, product_attributes: [:name, :id, :user_id, :desc, :price, :stock, :_destroy ], user_attributes: [:id])
+        params.require(:form).permit(:name, product_attributes: [:name, :id, :user_id, :desc, :price, :stock, :_destroy , :shipping_price], user_attributes: [:id])
     end
 end

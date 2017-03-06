@@ -51,7 +51,7 @@ class ReceiptController < ApplicationController
         @company = @form.user.company
         @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.ref_id)
         @form.product.each do |product|
-            @receipt.productreceipt.build(name: product.name,price: product.price,desc: product.desc, product_id:product.id)
+            @receipt.productreceipt.build(name: product.name,price: product.price,desc: product.desc, product_id: product.id, shipping_price: product.shipping_price)
         end
         @isreceipt = false
     end
@@ -91,8 +91,9 @@ class ReceiptController < ApplicationController
                 @productreceipt.desc = @product.desc
                 @productreceipt.price = @product.price
                 @productreceipt.user_id = @product.user_id
+                @productreceipt.shipping_price = @product.shipping_price * @productreceipt.qty
                 subtotal = @productreceipt.price * @productreceipt.qty
-                total = total + subtotal
+                total = total + subtotal + @productreceipt.shipping_price
                 @productreceipt.subtotal = subtotal
                 @productreceipt.save!
 

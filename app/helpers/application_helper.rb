@@ -9,6 +9,10 @@ module ApplicationHelper
     end
 
     def active_class(link_path)
+        
+        if link_path.include? "page"
+            puts "it have"
+        end
         current_page?(link_path) ? "active" : ""
     end
 end

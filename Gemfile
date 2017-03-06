@@ -34,6 +34,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'kaminari'
 gem 'activeadmin', '~> 1.0.0.pre4'
 
+gem 'active_link_to'
+
 gem 'devise'
 
 gem 'will_paginate', '~> 3.1.0'

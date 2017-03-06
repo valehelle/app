@@ -41,10 +41,10 @@
                   </li>
                   <li class="dropdown "><a class="dropdown-toggle" data-toggle="dropdown" href="#">Receipt<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                      <li class = "<%= active_class(receipt_index_path(status:0)) %>"> <%= link_to "View All", receipt_index_path(status:0) %> </li>
-                      <li class = "<%= active_class(receipt_index_path(status:1)) %>"> <%= link_to "Waiting Payment", receipt_index_path(status:1) %> </li>
-                      <li class = "<%= active_class(receipt_index_path(status:2)) %>"> <%= link_to "Buyer Paid", receipt_index_path(status:2) %> </li>
-                      <li class = "<%= active_class(receipt_index_path(status:3)) %>"> <%= link_to "Shipped", receipt_index_path(status:3) %> </li>
+                      <%= active_link_to 'View All',  receipt_index_path(status:0), :active => /status=0/, :wrap_tag => :li  %>
+                      <%= active_link_to 'Waiting Payment',  receipt_index_path(status:1), :active => /status=1/, :wrap_tag => :li  %> 
+                      <%= active_link_to 'Buyer Paid',  receipt_index_path(status:2), :active => /status=2/, :wrap_tag => :li  %> 
+                      <%= active_link_to 'Shipped',  receipt_index_path(status:3), :active => /status=3/, :wrap_tag => :li  %> 
                     </ul>
                   </li>
                   <li class = "<%= active_class(product_index_path) %>"> <%= link_to "Products", product_index_path %> </li>
@@ -62,12 +62,12 @@
             <% flash.each do |key, value| %>
             <div class="col-xs-12 col-md-12">
               <div class="col-xs-12 col-md-4 col-md-push-4" style = "margin-top:2vh;">
-                <div class="alert alert-<%= key %>"><%= value %>
+                <div class="alert alert-<%= key %>" style = "text-align:center"><%= value %>
                 </div>
               </div>
             </div>
             <% end %>
-            <div class="col-md-12 col-xs-12">
+            <div class="col-md-12 col-xs-12" >
               <%= yield %>
             </div>
         </div>
