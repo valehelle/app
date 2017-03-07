@@ -1,5 +1,5 @@
 <h1>Company</h1>
-
+<div class = "col-xs-12 col-md-4">
 <%= form_for :company, url: company_index_path do |f| %>
         <div class = "form-group">
                 <%= f.label :name %>
@@ -7,11 +7,11 @@
                 <%= f.label :address %>
                 <%= f.text_area :address, :class => "form-control" %>
                 <%= f.label :poskod %>
+                <%= f.text_field :poskod, :class => "form-control" %>
                 <%= f.label :city %>
                 <%= f.text_field :city, :class => "form-control" %>
                 <%= f.label :state %>
                 <%= f.text_field :state, :class => "form-control" %>
-                <%= f.number_field :poskod, :class => "form-control" %>
                 <%= f.label :country %>
                 <%= f.text_field :country, :class => "form-control" %>
                 <%= f.label :email %>
@@ -25,3 +25,4 @@
                 <%= f.submit "Add" , :class => "btn btn-success", :style => "margin-top:10px;" %>
         </div>
 <% end %>
+</div>

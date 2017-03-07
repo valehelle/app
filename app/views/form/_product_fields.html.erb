@@ -1,4 +1,4 @@
-<div class = "col-xs-12 col-md-12 thumbnail" style = "margin-bottom:5vh;">
+<div class = "col-xs-12 col-md-12 thumbnail">
     <%= f.label "Product Name" %>
     <%= f.text_field :name , :class => "form-control" %>
     <%= f.label "Product Description" %>
@@ -8,7 +8,7 @@
     <%= f.label "Product Stock" %>
     <%= f.number_field :stock , :class => "form-control" %>
     <%= f.label "Shipping price per Product" %>
-    <%= f.number_field :shipping_price , :class => "form-control" %>
+    <%= f.number_field :shipping_price , :class => "form-control",:step => 0.01  %>
     <%= f.check_box :_destroy %>
     <%= f.label :_destroy, "Remove Product"%>
 </div>

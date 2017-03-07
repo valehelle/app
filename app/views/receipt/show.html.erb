@@ -33,9 +33,11 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Desc</th>
+                                    <th class="hidden-xs hidden-sm" >Desc</th>
                                     <th>Quantity</th>
-                                    <th>Total Price</th>
+                                    <th class="hidden-xs hidden-sm" >Price</th>
+                                    <th class="hidden-xs hidden-sm" >Shipping Price</th>
+                                    <th>Subtotal Price</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,14 +47,20 @@
                                         <td>
                                             <%= product.name %>
                                         </td>
-                                        <td>
+                                        <td class="hidden-xs hidden-sm">
                                             <%= product.desc %>
                                         </td>
                                         <td>
                                             <%= product.qty %>
                                         </td>
+                                        <td class="hidden-xs hidden-sm" >
+                                            RM <%= product.price %>
+                                        </td>
+                                         <td class="hidden-xs hidden-sm" >
+                                            RM <%= product.shipping_price %>
+                                        </td>
                                         <td>
-                                            <%= product.subtotal %>
+                                            RM <%= product.subtotal %>
                                         </td>
                                     </tr>
                                     <% end %>
@@ -69,7 +77,8 @@
                     <hr style="margin-top:0px; margin-bottom:10px;">
                     <div class="col-xs-12 col-md-12" style="padding-left:0px;">
                         <div class="form-group">
-                            <%= f.text_field :shipping_number, :class => "form-control" %>
+                             <%= select("receipt", "shipping_courier", ["Pos Laju", "NinjaVan", "DHL"], :class => "form-control" ) %>
+                            <%= f.text_field :shipping_number, :class => "form-control", :style =>"margin-top:8px;", required: true%>
                             <%= f.submit "Update" , :class => "btn btn-success", :style => "margin-top:10px;" %>
                         </div>
                     </div>
@@ -86,6 +95,10 @@
                             <h4>
                                 Tracking Number :
                                 <%= @receipt.shipping_number %>
+                            </h4>
+                            <h4>
+                                Shipping Courier :
+                                <%= @receipt.shipping_courier %>
                             </h4>
                         <% end %>
                         <h4>Total Price:

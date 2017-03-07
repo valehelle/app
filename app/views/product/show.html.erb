@@ -1,3 +1,22 @@
-<p>SHOW</p>
-<%= @product.name %>
-<%= @product.price %>
+<h2>Product</h2>
+<%= link_to 'Edit' , edit_form_path(@product.form_id), :class => "btn btn-success" %>
+<br>
+<br>
+<div class = "col-xs-12 col-md-5" style = "padding-left:0px;">
+        <div class = " col-xs-12 col-md-12 " style = "background-color: white; border: 1px solid #d6dadc;" >
+            <h4><label><%= @product.name %></label></h4>
+            <hr style="margin-top:0px; margin-bottom:10px;">
+            <h4>
+                Description: <%= @product.desc %>
+            </h4>
+            <h4>
+                Price: RM <%= @product.price %>
+            </h4>
+            <h4>
+                Shipping Price: RM <%= @product.shipping_price %>
+            </h4>
+            <h4>
+                Stock: <%= @product.stock %>
+            </h4>
+        </div>
+</div>

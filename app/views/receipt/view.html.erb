@@ -47,14 +47,18 @@
 								</h5>
 							</div>
 							<% end %>
+							<% if @isreceipt  == true and @receipt.status == "Waiting Payment" %>
+										<div id="paymentmethod" class="col-xs-12" style = "background-color:#42548e; color:white;">
+							<% elsif %>
 										<div id="paymentmethod" class="col-xs-12">
+							<% end %>
 											<h5><b>Payment Method</b></h5>
 											<hr style="margin-top:0px; margin-bottom:0px;">
 											<h5>
 												<%= @company.payment_method %>
 											</h5>
 										</div>
-										<% if @isreceipt  == true and @receipt.status == "Waiting Payment"%>
+										<% if @isreceipt  == true and @receipt.status == "Waiting Payment" %>
 											<%= form_for @receipt, url: payment_update_path(@receipt.ref_id) , html: { multipart: true } do |f|  %>
 												<div class = "col-xs-12" style = "background-color:#298fca; color:white;">
 													<h5><b>Proof of payment</b></h5>
@@ -62,7 +66,7 @@
 													<div class = "col-xs-12 col-md-6" style = "padding-left:0;px">
 														<div class = "form-group">
 																<%= f.label "Image" %>
-																<%= f.file_field :pay_img %>
+																<%= f.file_field :pay_img, required: true %>
 																<%= f.label "Text" %>
 																<%= f.text_area :pay_txt, :class => "form-control" %>
 																<%= f.submit "Upload" , :class => "btn btn-success", :style => "margin-top:10px;" %>
@@ -70,7 +74,7 @@
 													</div>
 												</div>
 											<% end %>
-										<% else %>
+										<% elsif @isreceipt == true and @receipt.status != "Waiting Payment" %>
 										<div id="paymentproof" class="col-xs-12">
 											<h5><b>Proof of payment</b></h5>
 											<hr style="margin-top:0px; margin-bottom:0px;">
@@ -158,7 +162,7 @@
 																		<% if @isreceipt == true %>
 																		<span><%= p.object.shipping_price %> </span>
 																		<% elsif %>
-																		<span id = <%= "shipping_" + counter.to_s %> ><%= p.object.shipping_price %></span>
+																		<span id = <%= "shipping_" + counter.to_s %> >0.00</span>
 																		<% end %>
 																	</b>
 																</h5>

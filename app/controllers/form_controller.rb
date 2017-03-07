@@ -6,12 +6,15 @@ class FormController < ApplicationController
     end
 
     def show
+        per_page = 5
         @form = current_user.form.find(params[:id])
+        @receipts = @form.receipt.all.paginate(:page => params[:page], :per_page => per_page).order('id DESC')
     end
 
     def new()
         if Company.exists?(user_id: current_user.id)
             @form = current_user.form.build
+            @form.product.new
         else
             flash[:success] = "You need to add Company details first."
             redirect_to company_index_path()

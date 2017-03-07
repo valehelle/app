@@ -32,7 +32,4 @@
     </tbody>
 </table>
 <%= will_paginate @products, renderer: BootstrapPagination::Rails  %>
-<% else %>
-    <p>DOES NOT EXIST</p>
 <% end %>
-<%= link_to 'add', new_product_path%>

@@ -20,12 +20,7 @@ class CompanyController < ApplicationController
     end
 
     def edit
-        @company = Company.find(params[:id])
-        if @company.user_id == current_user.id
-            puts "same user"
-        else
-            puts "NOT SAME"
-        end
+        @company = current_user.company
     end
 
     def update

@@ -4,9 +4,11 @@
     <%= link_to 'Edit' , edit_form_path(@form), :class => "btn btn-success" %>
     <%= link_to 'View' , form_view_path(@form.ref_id), :class => "btn btn-primary" %>
     <%= link_to 'Delete' , @form , method: :delete, data: {confirm: "Are you sure?"} , :class => "btn btn-danger" %>
+    <br>
+    <br>
         <h4>Products:</h4> 
-        <div class = "col-md-12">
-            <div class = "col-md-5">
+        <div class = "col-md-12" style = "padding:0">
+            <div class = "col-md-5" style = "padding:0">
                 <table class="table">
                     <thead>
                     <tr>
@@ -19,7 +21,7 @@
                     <% @form.product.each do |product| %>
                         <tr>
                             <td><%= link_to product.name , product %></td>
-                            <td><%= product.price %></td>
+                            <td>RM <%= product.price %></td>
                             <td><%= product.stock %></td>
                         </tr>
                     <% end %>
@@ -27,27 +29,10 @@
                 </table>
             </div>
         </div>
-    <h4>Receipts:</h4> 
-        <table class="table">
-            <thead>
-            <tr>
-                <th class = "col-md-2">Reference ID</th>
-                <th class = "col-md-7">Customer Name</th>
-                <th class = "col-md-1">Date</th>
-                <th class = "col-md-2">Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @form.receipt.each do |receipt| %>
-                <tr>
-                    <td><%= link_to receipt.ref_id , receipt %></td>
-                    <td><%= receipt.customer_name %></td>
-                    <td><%= l receipt.created_at , format: :default%></td>
-                    <td><%= receipt.status %></td>
-                </tr>
-            <% end %>
-            </tbody>
-        </table>
+    <h4>Receipts:</h4>
+    <%= render(:partial => "/receipt/receipt_table", :locals => {:receipts => @receipts})%>
+    <%= will_paginate @receipts, renderer: BootstrapPagination::Rails  %>
+
 
 
 

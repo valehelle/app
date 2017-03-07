@@ -16,8 +16,11 @@
             <%= f.label "Name" %>
             <%= f.text_field :name , :class => "form-control" %>
         </div>
+        <%= f.fields_for :product do |p|%> 
+            <%= render "product_fields", f: p %>
+        <% end %>
         <%= link_to_add_fields "Add a Product", f, :product %>
-        <%= f.submit  "Create" , :class => "btn btn-success" %>
+        <%= f.submit  "Create" , :class => "btn btn-success col-xs-12", :style => "margin-top:8px; margin-bottom:8px;" %>
     </div>
     <% end %>
 

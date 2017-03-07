@@ -125,7 +125,7 @@ class ReceiptController < ApplicationController
     end
 
     def update_params
-        params.require(:receipt).permit(:pay_img, :pay_txt, :shipping_number)
+        params.require(:receipt).permit(:pay_img, :pay_txt, :shipping_number, :shipping_courier)
     end
 
     def resolve_layout

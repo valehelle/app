@@ -1,0 +1,39 @@
+  
+<table class="table">
+  <thead>
+    <tr>
+      <th class="col-xs-2 col-md-2" >Reference ID</th>
+      <th class="col-xs-3 col-md-3" >Name</th>
+      <th class="col-xs-6 col-md-5" >Address</th>
+      <th class="hidden-xs hidden-sm col-md-5" >Product</th>
+      <th class="col-xs-1 col-md-1" >Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% receipts.each do |f| %>
+      <tr>
+        <td>
+          <%= link_to f.ref_id , f %>
+        </td>
+        <td>
+          <%= f.customer_name %>
+        </td>
+        <td>
+          <%= f.shipping_address %>,<br>
+          <%= f.shipping_poskod %>,
+          <%= f.shipping_city %>,<br>
+          <%= f.shipping_state %>,<br>
+          <%= f.shipping_country %>
+        </td>
+        <td class="hidden-xs hidden-sm" >
+          <% f.productreceipt.each do |p| %>
+            <%= p.name %> x <%= p.qty %><br>
+          <% end %>
+        </td>
+        <td>
+          <%= f.status %>
+        </td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>

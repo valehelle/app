@@ -1,25 +1,19 @@
-<div class = "col-xs-12 col-md-4">
 <h2>COMPANY</h2>
-<%= link_to 'edit', edit_company_path(@company), :class =>"btn btn-success" %>
-<h3>Name:</h3>
-<h3><%= @company.name %></h3>
-<h3>Address:</h3>
-<h3><%= @company.address %></h3>
-<h3>Poskod:</h3>
-<h3><%= @company.poskod %></h3>
-<h3>City:</h3>
-<h3><%= @company.city %></h3>
-<h3>State:</h3>
-<h3><%= @company.state %></h3>
-<h3>Country:</h3>
-<h3><%= @company.country %></h3>
-<h3>Email:</h3>
-<h3><%= @company.email %></h3>
-<h3>Phone:</h3>
-<h3><%= @company.phone %></h3>
-<h3>Payment Method:</h3>
-<h3><%= @company.payment_method %></h3>
-<h3>Banner: </h3>
+<div class = "col-xs-12 col-md-12" style = "padding-left:0;">
+    <%= link_to 'edit', edit_company_path(@company), :class =>"btn btn-success" %>
+</div>
+<div class = "col-xs-12 col-md-4" style = "background-color: white; border: 1px solid #d6dadc; margin-top:10px; margin-bottom:10px; padding:0;">
 <%= image_tag @company.banner, :class =>"img-responsive" if @company.banner? %>
+<div class = "col-xs-12">
+    <h5>Name: <%= @company.name %></h5>
+    <h5>Address: <%= @company.address %></h5>
+    <h5>Poskod: <%= @company.poskod %></h5>
+    <h5>City: <%= @company.city %></h5>
+    <h5>State: <%= @company.state %></h5>
+    <h5>Country: <%= @company.country %></h5>
+    <h5>Email: <%= @company.email %></h5>
+    <h5>Phone: <%= @company.phone %></h5>
+    <h5>Payment Method: <%= @company.payment_method %></h5>
+</div>
 </div>
 
