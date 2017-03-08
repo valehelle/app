@@ -19,4 +19,25 @@ jQuery ->
             $("#" + ship).html(shipping_total)
         $("#total").html(total)
 
+    $( ".btn-number" ).click ->
+        qty_id = $(this).attr("data-field")
+        type = $(this).attr("data-type")
+        qty = $("#receipt_productreceipt_attributes_" + qty_id + "_qty").val()
+        if type == "plus"
+            qty_num = parseInt( qty, 10 );
+            qty_num = qty_num + 1
+            $("#receipt_productreceipt_attributes_" + qty_id + "_qty").val(qty_num)
+        else if type == "minus"
+            qty_num = parseInt( qty, 10 );
+            if(qty_num > 0)
+                qty_num = qty_num - 1
+                $("#receipt_productreceipt_attributes_" + qty_id + "_qty").val(qty_num)
+            else
+                $("#receipt_productreceipt_attributes_" + qty_id + "_qty").val(0)
+
+        $( ".qty" ).keyup();
+
+        
+
+
        

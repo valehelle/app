@@ -10,7 +10,7 @@
             <% end %>
 		<div class="col-md-12 col-xs-12">
 			<div class="col-xs-12 col-md-8 col-md-push-2 shadow" style="padding-left:0px; padding-right:0px; background-color:white;  margin-bottom:4px;">
-				<div id="banner" style = "background-image: url(<%= @company.banner %>); background-size:cover; height: 200px;">
+				<div id="banner" style = "background-image: url(<%= @company.banner %>);  height: 200px;">
 				</div>
 				<div class="col-xs-12 ">
 					<div id="companyinfo">
@@ -145,13 +145,26 @@
 																<h5 style="text-align: right;">RM<span class="price"><%= p.object.price %></span></h5>
 															</div>
 															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;  ">
-																<h5>Quantity: </h5>
-																	<% if @isreceipt == true %>
-																		<span><%= p.object.qty %></span>
+																<h5 style = "text-align: right;">Quantity: </h5>
+															</div>
+															<div class = "col-xs-4">
+																																	<% if @isreceipt == true %>
+																		<h5 style = "text-align:right;"><span>x<%= p.object.qty %></span></h5>
 																	<% elsif %>
-																		<%= p.number_field :qty , :class => "qty", :data => p.object.price, :sub => counter, :shipping => p.object.shipping_price, :ship_id => "shipping_" + counter.to_s %>
+																	<div class="input-group col-xs-12 col-md-8 col-md-push-4">
+																		<span class="input-group-btn">
+																			<button type="button" class="btn btn-danger btn-number" data-type="minus" data-field="<%= counter.to_s %>">
+																				<span class="glyphicon glyphicon-minus"></span>
+																			</button>
+																		</span>
+																		<%= p.number_field :qty , :class => "qty form-control", :data => p.object.price, :sub => counter, :shipping => p.object.shipping_price, :ship_id => "shipping_" + counter.to_s, :min => "0" %>
+																		<span class="input-group-btn">
+																			<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="<%= counter.to_s %>">
+																				<span class="glyphicon glyphicon-plus"></span>
+																			</button>
+																		</span>
+																	</div>
 																	<% end %>
-																
 															</div>
 															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
 																<h5 style="text-align:right;">Shipping Price:</h5>

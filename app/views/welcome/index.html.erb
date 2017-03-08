@@ -1,102 +1,31 @@
-<div class="container-fluid" style = "background-color: black; min-height:70vh;">
+<div class="container-fluid" style = "background-color: #0288D1; min-height:100vh; margin-top:-20px;">
 	<div class = "row">
-		<h1 class= "col-xs-8 col-md-10" style = "font-family: 'Grand Hotel', cursive; color:white;"><a href = "/" style = "text-decoration:none; color:white;">Visual Receipt</a></h1>
 		<div class = "col-xs-12 col-md-8 col-md-push-2" style = "margin-top:8vh;">
 			<h1 style = "font-weight: bold; text-align:center; color:white; line-height:1.5em;">
-			    Increase your online sales using Visual Receipt
+			    Increase your online sales using Easy Order
 			</h1>
 			<h3 style = " text-align:center; color:white; margin-top:6vh; line-height:1.5em;">
-			    Stand out from your competitors. Visual Receipt will give a whole new level of engagement for your customers.
+			    Stand out from your competitors. Easy Order will give a whole new level of engagement for your customers.
 			</h3>
-            <div class = "col-xs-12 col-md-6 col-md-push-3">
-            <%= form_for(:user, :url => session_path(:user),html: {class: "form-group", style: "color:white"}) do |f| %>
+            <div class = "col-xs-12 col-md-6 col-md-push-3 shadow" style = "background-color: white; padding:8px; padding-bottom:1px;">
+            <%= form_for(:user, :url => session_path(:user),html: {class: "form-group"}) do |f| %>
                 <%= f.label :email %>
                 <%= f.text_field :email, :class => "form-control" %>
                 <%= f.label :password, :style => "margin-top:3vh;" %>
                 <%= f.password_field :password, :class => "form-control", :style => "margin-bottom:1vh;"  %>
                 <%= f.check_box :remember_me %>
                 <%= f.label :remember_me %>
-                <%= f.submit 'Sign in', :class => "col-xs-12 col-md-12 btn btn-primary" %>
-                <%= link_to "Forgot your password?", new_password_path(:user), :class => "col-xs-12 col-md-12" %>
-                <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+				<br>
+                <%= f.submit 'Sign in', :class => "btn btn-success" %>
+                <br>
+				<br>
+                <%= link_to "Sign Up", new_user_registration_path %> 
+				<br>  
+				<%= link_to "Forgot your password?", new_password_path(:user) %> 
+                <br>
+                <%= link_to "Go to Dashboard", form_index_path %>    
             <% end %>
             </div>
 		</div>	
     </div>
-</div>
-<div class="container-fluid" style = "background:-webkit-linear-gradient(90deg, #a7b9f4, #0288D1); background:linear-gradient(0deg, #a7b9f4, #0288D1);overflow:hidden;">
-	<div class = "row">
-		<div class = "col-xs-12 col-md-12">
-			<div class = "col-xs-12 col-md-8 col-md-push-2">
-				<div class = "col-xs-12 col-md-12">
-					<h3 style = "color:white; text-align:center; margin-top:8vh; line-height:1.5em;"><b>
-						A professional look
-					</b></h3>
-					<h4 style = "color:white; text-align:center; margin-top:5vh; line-height:1.5em;">
-						Improve your business by giving your customer Visual Receipt. Forget the extra time spent on receiving address information through messaging. Your productivity will increase and your customer will thank you for it.
-					</h4>
-				</div>
-				<div class = "col-xs-12 col-md-12">
-					<div class = "hidden-xs col-md-6">
-						<img style = "margin-top:8vh; display:block; margin: 5vh auto; float:left;" src="{% static "create_invoice_1.png"%} " class="img-responsive shadow" alt="Cinque Terre" width="auto" height="13vh">
-					</div>
-					<div class = "col-xs-12 col-md-6">
-						<img style = "margin-top:8vh; display:block; margin: 5vh auto; float:right;"  src="{% static "client_4.png"%} " class="img-responsive shadow" alt="Cinque Terre" width="auto" height="11vh">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="container-fluid" style = " background-color:#7b8fd1 ; overflow:hidden;">
-	<div class = "row">
-		<div class = "col-xs-12 col-md-12">
-			<div class = "col-xs-12 col-md-8 col-md-push-2">
-				<div class = "col-xs-12 col-md-6">
-					<h3 style = "color:white;  margin-top:8vh; line-height:1.5em;">
-					<b>
-						Information at a glance
-					</b></h3>
-					<h4 style = "color:white; margin-top:5vh; line-height:1.5em;">
-						See invoices from all of your customers. Whether it's paid,unpaid or shipped, all of your invoices will be at your fingertips.
-					</h4>
-				</div>
-				<div class = "col-xs-12 col-md-6" style = "padding-top: 5vh;">
-					<img style = " display:block; margin: 0 auto; float:right;" src="{% static "main_3.png"%} " class="img-responsive shadow" alt="Cinque Terre" width="auto" height="13vh">
-				</div>
-			</div>
-   		</div>
-	</div>
-</div>
-<div class="container-fluid" style = " background-color:#eb5a46; overflow:hidden;">
-	<div class = "row">
-		<div class = "col-xs-12 col-md-12">
-			<div class = "col-xs-12 col-md-8 col-md-push-2">
-				<div class = "col-xs-12 col-md-6 col-md-push-6">
-					<h3 style = "color:white; margin-top:8vh; line-height:1.5em;"><b>
-						Automate everything
-					</b></h3>
-					<h4 style = "color:white; margin-top:2vh; line-height:1.5em;">
-						Send Visual Receipt that allow your customer to fill in their shipping details themselves. Updating tracking number will also be send to the customer email automatically.
-					</h4>
-				</div>
-				<div class = "col-xs-12 col-md-6 col-md-pull-6" style = "padding-top: 5vh;">
-					<img style = "display:block; margin: 0 auto; float:left;" src="{% static "invoiceshipped_3.png"%} " class="img-responsive shadow" alt="Cinque Terre" width="auto" height="13vh">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="container-fluid" style = " background-color:#f8f9f9; overflow:hidden; " >
-	<div class = "row">
-		<div class = "col-xs-12 col-md-12">
-			<div class = "col-xs-12 col-md-8 col-md-push-2">
-				<div class = "col-xs-12 col-md-12">
-					<h3 style = " text-align:center; margin-top:4vh; line-height:1.5em;"><b>
-						It's time for your business to stand out from the rest.
-					</b></h3>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
