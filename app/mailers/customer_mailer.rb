@@ -1,8 +1,9 @@
 class CustomerMailer < ApplicationMailer
-  default from: 'visualreceipt@gmail.com.com'
+  default from: 'easyordermalaysia@gmail.com'
  
-  def receipt_email(email)
-    @url  = 'http://example.com/login'
-    mail(to: email, subject: 'Welcome to My Awesome Site')
+  def receipt_email(email,name,ref_id)
+    @name = name
+    @ref_id = ref_id
+    mail(to: email, subject: 'Purchase Receipt')
   end
 end

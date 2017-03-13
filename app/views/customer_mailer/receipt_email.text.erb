@@ -1,9 +1,4 @@
-
-
-===============================================
- 
-You have successfully signed up to example.com,
- 
-To login to the site, just follow this link: <%= @url %>.
- 
-Thanks for joining and have a great day!
+Hello <%= @name %>
+Thanks for your purchase of the product.
+Click on this link to view your receipt
+<%= link_to 'View' , receipt_view_url(@ref_id)%>

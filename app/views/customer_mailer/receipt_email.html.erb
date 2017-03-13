@@ -5,10 +5,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <b>THIS IS BOLD</b>
     <p>
-      To login to the site, just follow this link: <%= @url %>.
+       Hello <%= @name %>
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>Thanks for your purchase of the product.</p>
+    <p>Click on this link to view your receipt</p>
+    <%= link_to 'View' , receipt_view_url(@ref_id)%>
   </body>
 </html>

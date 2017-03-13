@@ -1,6 +1,6 @@
 class ReceiptController < ApplicationController
     layout :resolve_layout
-    before_action :authenticate_user!, except: [:payment_update,:view,:receipt_view,:create]
+    before_action :authenticate_user!, except: [:payment_update,:view,:receipt_view,:create,:payment_update]
 
     def index
         status = params[:status]
@@ -105,7 +105,7 @@ class ReceiptController < ApplicationController
         end
         if (isproduct)
             if(@receipt.save)
-                CustomerMailer.receipt_email("hazmiirfan92@gmail.com").deliver_now
+                CustomerMailer.receipt_email(@receipt.customer_email,@receipt.customer_name,@receipt.ref_id).deliver_now
                 redirect_to receipt_view_path(@receipt.ref_id)
             elsif
                 flash[:success] = "Please fill in all the required details"
