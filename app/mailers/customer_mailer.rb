@@ -1,5 +1,5 @@
 class CustomerMailer < ApplicationMailer
-  default from: 'easyordermalaysia@gmail.com'
+  default from: 'easyorderreceipt@gmail.com'
  
   def receipt_email(email,name,ref_id)
     @name = name
