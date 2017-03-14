@@ -13,7 +13,7 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
-  ActionMailer::Base.default_url_options = { :host => "localhost:3000" }
+  ActionMailer::Base.default_url_options = { :host => "easyorder.club" }
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
