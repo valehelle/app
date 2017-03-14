@@ -39,6 +39,10 @@ Rails.application.configure do
   # config.action_cable.url = 'wss://example.com/cable'
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
+
+  #Devise email
+  config.action_mailer.default_url_options = {host:'easyorder.club',port: 3000}
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
 
@@ -50,8 +54,8 @@ Rails.application.configure do
     address:              'smtp.gmail.com',
     port:                 587,
     domain:               'gmail.com',
-    user_name:            'easyordermalaysia@gmail.com',
-    password:             '2e?8FYT-xaE+rF%K',
+    user_name:            'easyorderreceipt@gmail.com',
+    password:             'cNTbEO8sV',
     authentication:       'plain',
     enable_starttls_auto: true  }
 
