@@ -1,5 +1,5 @@
-<h1>PRODUCT</h1>
-<% if @products.exists? %>
+<h2>PRODUCT</h2>
+<div class = "col-xs-12 shadow" style = " background-color: white; padding:5px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;">
 <table class="table">
     <thead>
         <tr>
@@ -32,4 +32,4 @@
     </tbody>
 </table>
 <%= will_paginate @products, renderer: BootstrapPagination::Rails  %>
-<% end %>
+</div>

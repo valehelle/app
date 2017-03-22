@@ -4,7 +4,7 @@
 <br>
 <br>
 <div class = "col-xs-12 col-md-8" style = "padding-left:0px;">
-        <div class = " col-xs-12 col-md-12 " style = "background-color: white; border: 1px solid #d6dadc;" >
+        <div class = " col-xs-12 col-md-12 " style = "background-color: white; padding:10px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px; >
             <h4><label>Customer Information</label></h4>
             <hr style="margin-top:0px; margin-bottom:10px;">
             <h4>Name:
@@ -26,9 +26,8 @@
                 <%= @receipt.customer_phone %>
             </h4>
         </div>
-        <div class = " col-xs-12 col-md-12" style = "background-color: white; border: 1px solid #d6dadc; margin-top:10px; margin-bottom:10px;" >
-            <h4><label>Receipt Information</label></h4>
-            <hr style="margin-top:0px; margin-bottom:10px;">
+        <div class = " col-xs-12 col-md-12" style = "background-color: white; padding:10px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;" >
+            <h4><label>Receipts</label></h4>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -71,7 +70,7 @@
 </div>
 </div>
         <% if  @receipt.status == "Buyer Paid" %>
-        <div class = " col-xs-12 col-md-3 col-md-push-1" style = "background-color: white; border: 1px solid #d6dadc;" >
+        <div class = " col-xs-12 col-md-3 col-md-push-1" style = "background-color: white; padding:10px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px; >
             <%= form_for @receipt, url: shipment_update_path(@receipt) do |f|  %>
                     <h4><%= f.label "Tracking Number" %></h4>
                     <hr style="margin-top:0px; margin-bottom:10px;">
@@ -85,7 +84,7 @@
             <% end %>
         </div>
         <% end %>
-        <div class = " col-xs-12 col-md-3  col-md-push-1" style = "background-color: white; border: 1px solid #d6dadc; margin-top:10px;" >
+        <div class = " col-xs-12 col-md-3  col-md-push-1" style = "background-color: white; padding:10px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;" >
             <h4><label>Receipt Information</label></h4>
             <hr style="margin-top:0px; margin-bottom:10px;">
                         <h4>Status:

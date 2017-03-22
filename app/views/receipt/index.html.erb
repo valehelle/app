@@ -1,3 +1,5 @@
 <h2>Receipt</h2>
+<div class = "col-xs-12" style = "background-color: white; padding:5px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;">
 <%= render(:partial => "receipt_table", :locals => {:receipts => @receipts} )%>
 <%= will_paginate @receipts, renderer: BootstrapPagination::Rails  %>
+</div>

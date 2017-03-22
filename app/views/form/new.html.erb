@@ -12,7 +12,7 @@
 
     <%= form_for @form , url: form_index_path do |f| %>
     <div class = "col-xs-12 col-md-4">
-        <div class = "form-group">
+        <div class = "form-group shadow" style = "padding:5px; background-color: white; padding:5px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;">
             <%= f.label "Name" %>
             <%= f.text_field :name , :class => "form-control" %>
         </div>

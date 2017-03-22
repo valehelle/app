@@ -1,2 +1,34 @@
-<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-<h1>DASHBOARD</h1>
+<h2>DASHBOARD</h2>
+<div class = "col-xs-12 col-md-3" style = "padding-left:0;">
+    <div class = "col-xs-12 small-box"style = "background-color: #00c0ef; color:white; text-align: center;">
+        <h2><b><%= @new_orders %></b></h2>
+        <p>New Orders</p>
+        <a href="<%= receipt_index_path(status:2) %>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+    
+</div>
+<div class = "col-xs-12 col-md-3" style = "padding-left:0;">
+    <div class = "col-xs-12 small-box"style = "background-color: #00a65a ; color:white; text-align: center;">
+        <h2><b><%= @total_forms %></b></h2>
+        <p>Total Forms</p>
+        <a href="<%= form_index_path %>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+    
+</div>
+<div class = "col-xs-12 col-md-3" style = "padding-left:0;">
+    <div class = "col-xs-12 small-box"style = "background-color: #f39c12 ; color:white; text-align: center;">
+        <h2><b><%= @total_products %></b></h2>
+        <p>Total Products</p>
+        <a href="<%= product_index_path %>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+    
+</div>
+<div class = "col-xs-12 col-md-3" style = "padding-left:0;">
+    <div class = "col-xs-12 small-box"style = "background-color: #dd4b39 ; color:white; text-align: center;">
+        <h2><%= @total_orders %></h2>
+        <p>Total Orders</p>
+        <a href="<%= receipt_index_path(status:0) %>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+    
+</div>
+

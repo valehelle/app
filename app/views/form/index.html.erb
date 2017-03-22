@@ -1,5 +1,6 @@
 <h2>FORM</h2>
-<table class="table">
+<div class = "col-xs-12 shadow" style = " background-color: white; padding:5px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;">
+<table class="table" >
   <thead>
     <tr>
       <th class="col-xs-2 col-md-2">Reference ID</th>
@@ -29,4 +30,5 @@
       <% end %>
   </tbody>
 </table>
+</div>
 <%= will_paginate @forms, renderer: BootstrapPagination::Rails  %>
