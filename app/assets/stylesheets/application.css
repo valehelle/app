@@ -27,6 +27,9 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #1e282c !important;
     color: #fff !important;
 }
+.navbar-fixed-side .navbar-nav .dropdown-menu>li>a:link {
+    color: #fff !important;
+}
 
 .navbar-fixed-side .navbar-nav .dropdown-menu>li>a:hover {
     background-color: #1e282c !important;
@@ -34,11 +37,14 @@ input[type=number]::-webkit-outer-spin-button {
     border-left-color: #3c8dbc !important;
 }
 
+
+
 .navbar-fixed-side .navbar-nav .dropdown-menu>.active>a {
     background-color: #1e282c !important;
     color: #fff !important;
     border-left-color: #3c8dbc !important;
 }
+
 
 .navbar-fixed-side .navbar-nav .dropdown-menu{
   border-bottom:0 !important;
