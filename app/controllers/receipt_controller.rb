@@ -52,11 +52,13 @@ class ReceiptController < ApplicationController
 
     def shipment_update_all
         params[:receipt].keys.each do |key|
-            @receipt = current_user.receipt.find_by(id: key)
-            @receipt.shipping_courier = params[:receipt][key][:shipping_courier]
-            @receipt.shipping_number = params[:receipt][key][:shipping_number]
-            @receipt.status = "Shipped"
-            @receipt.save
+            if !@receipt.shipping_number.blank?
+                @receipt = current_user.receipt.find_by(id: key)
+                @receipt.shipping_courier = params[:receipt][key][:shipping_courier]
+                @receipt.shipping_number = params[:receipt][key][:shipping_number]
+                @receipt.status = "Shipped"
+                @receipt.save
+            end
         end
  
         flash[:success] = "Update Successfull!"
