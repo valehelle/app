@@ -3,10 +3,10 @@
   <thead>
     <tr>
       <th class="col-xs-2 col-md-2" >Reference ID</th>
-      <th class="col-xs-3 col-md-3" >Name</th>
-      <th class="col-xs-6 col-md-5" >Address</th>
-      <th class="hidden-xs hidden-sm col-md-5" >Product</th>
-      <th class="col-xs-1 col-md-1" >Status</th>
+      <th class="col-xs-3 col-md-2" >Name</th>
+      <th class="col-xs-6 col-md-3" >Address</th>
+      <th class="hidden-xs hidden-sm col-md-3" >Product</th>
+      <th class="col-xs-1 col-md-2" >Status</th>
     </tr>
   </thead>
   <tbody>
@@ -31,7 +31,19 @@
           <% end %>
         </td>
         <td>
-          <%= f.status %>
+        <% if f.status == "Buyer Paid" %>
+        <div class="col-xs-12 col-md-6" style="background-color:#4CAF50;">
+								<h6 style="color:white;text-align:center;"><b><%= f.status %></b></h6>
+				</div>
+        <% elsif f.status == "Shipped" %>
+        <div class="col-xs-12 col-md-6" style="background-color:cornflowerblue;">
+								<h6 style="color:white;text-align:center;"><b><%= f.status %></b></h6>
+				</div
+        <% else %>
+        <div class="col-xs-12 col-md-6" style="background-color:darkred;">
+								<h6 style="color:white;text-align:center;"><b><%= f.status %></b></h6>
+				</div
+        <% end %>
         </td>
       </tr>
       <% end %>

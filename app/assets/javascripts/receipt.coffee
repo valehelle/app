@@ -11,12 +11,12 @@ jQuery ->
             qty = $(element).val()
             sub = $(element).attr("sub")
             ship = $(element).attr("ship_id")
-
             subtotal = price * qty
             shipping_total = shipping_price * qty
             total = total + subtotal + shipping_total
             $("#" + sub).html(subtotal)
             $("#" + ship).html(shipping_total)
+
         $("#total").html(total)
 
     $( ".btn-number" ).click ->

@@ -46,23 +46,7 @@ class ReceiptController < ApplicationController
         redirect_to receipt_path(@receipt.id)
     end
 
-    def shipment_update_all_view
-        @receipts = current_user.receipt.where(status: "Buyer Paid")
-    end
 
-    def shipment_update_all
-        params[:receipt].keys.each do |key|
-            @receipt = current_user.receipt.find_by(id: key)
-            @receipt.shipping_courier = params[:receipt][key][:shipping_courier]
-            @receipt.shipping_number = params[:receipt][key][:shipping_number]
-            @receipt.status = "Shipped"
-            @receipt.save
-        end
- 
-        flash[:success] = "Update Successfull!"
-        redirect_to dashboard_path
-
-    end
 
 
     def view
@@ -95,7 +79,7 @@ class ReceiptController < ApplicationController
             end
         end
 
-        @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.id, customer_name: params[:receipt][:customer_name], customer_email: params[:receipt][:customer_email],customer_phone: params[:receipt][:customer_phone],shipping_address: params[:receipt][:shipping_address] ,shipping_state: params[:receipt][:shipping_state], shipping_poskod: params[:receipt][:shipping_poskod], shipping_city: params[:receipt][:shipping_city], shipping_country: params[:receipt][:shipping_country],pay_img: params[:receipt][:pay_img],pay_txt: params[:receipt][:pay_txt])
+        @receipt = Receipt.new(user_id: @form.user_id, form_id: @form.id, customer_name: params[:receipt][:customer_name], customer_email: params[:receipt][:customer_email],customer_phone: params[:receipt][:customer_phone],shipping_address: params[:receipt][:shipping_address] ,shipping_state: params[:receipt][:shipping_state], shipping_poskod: params[:receipt][:shipping_poskod], shipping_city: params[:receipt][:shipping_city], shipping_country: params[:receipt][:shipping_country])
 
         total = 0
 
@@ -122,9 +106,6 @@ class ReceiptController < ApplicationController
             end
             @receipt.total = total
         end
-
-        @receipt.status = "Buyer Paid"
-
         if (isproduct)
             if(@receipt.save)
                 CustomerMailer.receipt_email(@receipt.customer_email,@receipt.customer_name,@receipt.ref_id).deliver_now

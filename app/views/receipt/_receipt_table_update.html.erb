@@ -1,0 +1,53 @@
+
+<table class="table">
+  <thead>
+    <tr>
+      <th class="col-xs-2 col-md-2" >Reference ID</th>
+      <th class="col-xs-3 col-md-2" >Name</th>
+      <th class="col-xs-6 col-md-2" >Address</th>
+      <th class="hidden-xs hidden-sm col-md-2" >Product</th>
+      <th class="col-xs-1 col-md-4" >Courier Info</th>
+    </tr>
+  </thead>
+  <tbody>
+   <%= form_tag shipment_update_all_path, :method => :patch do %>
+    <%= submit_tag "Update" , :class => "btn btn-success", :style => "margin-top:10px;" %>
+    <% for receipt in receipts %>
+      <%= fields_for "receipt[]", receipt do |f| %> 
+        <tr>
+          
+          <td>
+            <%= link_to receipt.ref_id , receipt %>
+          </td>
+          <td>
+            <%= receipt.customer_name %>
+          </td>
+          <td>
+            <%= receipt.shipping_address %>,<br>
+            <%= receipt.shipping_poskod %>,
+            <%= receipt.shipping_city %>,<br>
+            <%= receipt.shipping_state %>,<br>
+            <%= receipt.shipping_country %>
+          </td>
+          <td class="hidden-xs hidden-sm" >
+            <% receipt.productreceipt.each do |p| %>
+              <%= p.name %> x <%= p.qty %><br>
+            <% end %>
+          </td>
+          <td>
+                      <h4><%= f.label "Tracking Number" %></h4>
+                      <hr style="margin-top:0px; margin-bottom:10px;">
+                      <div class="col-xs-12 col-md-12" style="padding-left:0px;">
+                          <div class="form-group">
+                              <%= select("receipt" + "[" + receipt.id.to_s +  "]", :shipping_courier, ["Pos Laju", "NinjaVan", "DHL"], :class => "form-control" ) %>
+                              <%= f.text_field :shipping_number, :class => "form-control", :style =>"margin-top:8px;", required: true, value: 'user@admin.com'%>
+                              
+                          </div>
+                      </div>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

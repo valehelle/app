@@ -10,28 +10,23 @@
             <% end %>
 		<div class="col-md-12 col-xs-12">
 			<div class="col-xs-12 col-md-8 col-md-push-2 shadow" style="padding-left:0px; padding-right:0px; background-color:white;  margin-bottom:4px;">
-				<div class = "col-md-4">
 				<% if @company.banner? %>
-					<img src="<%= @company.banner %>" class="img-rounded" alt="Cinque Terre" width="100" height="100" style = "display:block; margin: 20px auto;">
+					<img src="<%= @company.banner %>" class="img-rounded" alt="Cinque Terre" width="100" height="100" style = " display:block; margin:auto;margin-top:15px;">
 				<% elsif %>
 						
-					<img src="<%= asset_path"default-logo.png" %>" class="img-rounded" alt="Cinque Terre" width="100" height="100" style = "">
+					<img src="<%= asset_path"default-logo.png" %>" class="img-rounded" alt="Cinque Terre" width="100" height="100" style = " display:block; margin:auto; margin-top:15px;">
 				<% end %>
-				</div>
-				<div class="col-xs-12 col-md-6">
+				<div class="col-xs-12 ">
 					<div id="companyinfo">
 						<h6><b><%= @company.name %></b></h6>
 						<h6>
 							<%= @company.address %>
 						</h6>
 						<h6>
-							<%= @company.poskod %>,<%= @company.city %>,
+							<%= @company.city %>
 						</h6>
 						<h6>
-							<%= @company.state %>,
-						</h6>
-						<h6>
-							<%= @company.country %>
+							<%= @company.poskod %>
 						</h6>
 						<h6>
 							<%= @company.phone %>
@@ -43,7 +38,7 @@
 				</div>
 					<% if @isreceipt == true %>
 						<div id="receiptstatus" class="col-xs-12 col-md-12" style="margin-bottom:10px; margin-top:10px;">
-							<div class="col-xs-12 col-md-4" style="background-color:#4CAF50;">
+							<div class="col-xs-8 col-md-4" style="background-color:#4CAF50;">
 								<h5 style="color:white;text-align:center;"><b><%= @receipt.status %></b></h5>
 							</div>
 						</div>
@@ -56,8 +51,33 @@
 								</h5>
 							</div>
 							<% end %>
+							<% if @isreceipt  == true and @receipt.status == "Waiting Payment" %>
+										<div id="paymentmethod" class="col-xs-12" style = "background-color:#42548e; color:white;">
+							<% elsif %>
+										<div id="paymentmethod" class="col-xs-12">
+							<% end %>
+											<h5><b>Payment Method</b></h5>
+											<hr style="margin-top:0px; margin-bottom:0px;">
+											<h5>
+												<%= @company.payment_method %>
+											</h5>
+										</div>
 										<% if @isreceipt  == true and @receipt.status == "Waiting Payment" %>
-
+											<%= form_for @receipt, url: payment_update_path(@receipt.ref_id) , html: { multipart: true } do |f|  %>
+												<div class = "col-xs-12" style = "background-color:#298fca; color:white;">
+													<h5><b>Proof of payment</b></h5>
+													<hr style="margin-top:0px; margin-bottom:0px;">
+													<div class = "col-xs-12 col-md-6" style = "padding-left:0;px">
+														<div class = "form-group">
+																<%= f.label "Image" %>
+																<%= f.file_field :pay_img, required: true %>
+																<%= f.label "Text" %>
+																<%= f.text_area :pay_txt, :class => "form-control" %>
+																<%= f.submit "Upload" , :class => "btn btn-success", :style => "margin-top:10px;" %>
+														</div>
+													</div>
+												</div>
+											<% end %>
 										<% elsif @isreceipt == true and @receipt.status != "Waiting Payment" %>
 										<div id="paymentproof" class="col-xs-12">
 											<h5><b>Proof of payment</b></h5>
@@ -72,7 +92,7 @@
 										</div>
 											
 										<% end %>
-									<% if @receipt.status == "Buyer Paid" and @isreceipt == true %>
+									<% if @receipt.status == "Waiting Payment" and @isreceipt == true %>
 										<div id="paymentmethod" class="col-xs-12">
 											<h5><b>Shipping Information</b></h5>
 											<hr style="margin-top:0px; margin-bottom:0px;">
@@ -110,7 +130,7 @@
 												<h5 style="text-align: right;">Amount</h5>
 											</div>
 										</div>
-										<%= form_for @receipt , url: receipt_index_path(@form_ref), html: { multipart: true } do |f| %>
+										<%= form_for @receipt , url: receipt_index_path(@form_ref) do |f| %>
 										<div class="col-xs-12" id="productInfo">
 												<%=  f.hidden_field :form_id %>
 													<% counter = 0 %>
@@ -128,12 +148,11 @@
 															<div class="col-xs-4">
 																<h5 style="text-align: right;">RM<span class="price"><%= p.object.price %></span></h5>
 															</div>
-														<div class = "col-xs-12" style = "padding:0;">
-															<div class="col-xs-4 col-sm-8" style="padding-left:0px; padding-right:0px;  ">
+															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;  ">
 																<h5 style = "text-align: right;">Quantity: </h5>
 															</div>
-															<div class = "col-xs-8 col-sm-4">
-																	<% if @isreceipt == true %>
+															<div class = "col-xs-4">
+																																	<% if @isreceipt == true %>
 																		<h5 style = "text-align:right;"><span>x<%= p.object.qty %></span></h5>
 																	<% elsif %>
 																	<div class="input-group col-xs-12 col-md-8 col-md-push-4">
@@ -151,12 +170,11 @@
 																	</div>
 																	<% end %>
 															</div>
-										</div>
-															<div class = "col-xs-12" style = "padding:0;">
-															<div class="col-xs-4 col-sm-8" style="padding-left:0px; padding-right:0px;">
+															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
 																<h5 style="text-align:right;">Shipping Price:</h5>
 															</div>
-															<div class="col-xs-8 col-sm-4">
+
+															<div class="col-xs-4">
 																<h5 style="text-align: right;"><b>RM
 																		<% if @isreceipt == true %>
 																		<span><%= p.object.shipping_price %> </span>
@@ -166,11 +184,11 @@
 																	</b>
 																</h5>
 															</div>
-															</div>
-															<div class="col-xs-4 col-sm-8" style="padding-left:0px; padding-right:0px;">
+
+															<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
 																<h5 style="text-align:right;">Subtotal:</h5>
 															</div>
-															<div class="col-xs-8 col-sm-4">
+															<div class="col-xs-4">
 																<h5 style="text-align: right;"><b>RM
 																		<% if @isreceipt == true %>
 																		<span><%= p.object.subtotal %> </span>
@@ -244,26 +262,6 @@
 														<%= f.label "Country" %>
 															<%= f.text_field :shipping_country , :class => "form-control", required: true  %>
 													</div>
-										<div id="paymentmethod" class="col-xs-12" style = "background-color:#42548e; color:white; margin-bottom: 10px;">
-											<h5><b>Payment Method</b></h5>
-											<hr style="margin-top:0px; margin-bottom:0px;">
-											<h5>
-												<%= @company.payment_method %>
-											</h5>
-										</div>
-												<div class = "col-xs-12" style = "background-color:#36405f; color:white; margin-bottom:10px;">
-													<h5><b>Proof of payment</b></h5>
-													<hr style="margin-top:0px; margin-bottom:0px;">
-													<div class = "col-xs-12 col-md-6" style = "padding-left:0px;">
-														<div class = "form-group">
-																<%= f.label "Image" %>
-																<%= f.file_field :pay_img, required: true %>
-																<%= f.label "Text" %>
-																<%= f.text_area :pay_txt, :class => "form-control" %>
-														</div>
-													</div>
-												</div>
-
 													<%= f.submit  "Proceed" , :class => "btn btn-success col-xs-12" , :style => "margin-bottom:10px;"%>
 														<h6>By clicking submit you agree that all the information provided below is correct.</h6>
 											</div>

@@ -70,7 +70,7 @@
 </div>
 </div>
         <% if  @receipt.status == "Buyer Paid" %>
-        <div class = " col-xs-12 col-md-3 col-md-push-1" style = "background-color: white; padding:10px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px; >
+        <div class = " col-xs-12 col-md-3 col-md-push-1" style = "background-color: white; padding:10px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;">
             <%= form_for @receipt, url: shipment_update_path(@receipt) do |f|  %>
                     <h4><%= f.label "Tracking Number" %></h4>
                     <hr style="margin-top:0px; margin-bottom:10px;">
