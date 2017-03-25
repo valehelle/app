@@ -10,7 +10,6 @@ class ReceiptController < ApplicationController
         elsif (status == "2")
             @receipts = current_user.receipt.where(status: "Buyer Paid").paginate(:page => params[:page], :per_page => per_page).order('id DESC')
         elsif (status == "3")
-            puts "helo"
             @receipts = current_user.receipt.where(status: "Shipped").paginate(:page => params[:page], :per_page => per_page).order('id DESC')
         else
             @receipts = current_user.receipt.all.paginate(:page => params[:page], :per_page => per_page).order('id DESC')
@@ -52,7 +51,7 @@ class ReceiptController < ApplicationController
 
     def shipment_update_all
         params[:receipt].keys.each do |key|
-            if !@receipt.shipping_number.blank?
+            if !params[:receipt][key][:shipping_number].blank?
                 @receipt = current_user.receipt.find_by(id: key)
                 @receipt.shipping_courier = params[:receipt][key][:shipping_courier]
                 @receipt.shipping_number = params[:receipt][key][:shipping_number]

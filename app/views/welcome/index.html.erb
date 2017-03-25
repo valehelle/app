@@ -2,15 +2,15 @@
 	<div class = "row">
 		<div class = "col-xs-12 col-md-8 col-md-push-2" style = "margin-top:8vh;">
 			<h1 style = "font-weight: bold; text-align:center; color:white; line-height:1.5em;">
-			    Increase your online sales using Easy Order
+			    Save your time using Easy Order
 			</h1>
-			<h3 style = " text-align:center; color:white; margin-top:6vh; line-height:1.5em;">
-			    Stand out from your competitors. Easy Order will give a whole new level of engagement for your customers.
+			<h3 style = " text-align:center; color:white;  line-height:1.5em; margin-bottom: 25px;">
+			    Easy Order will allow you to take orders from customer quickly.
 			</h3>
             <div class = "col-xs-12 col-md-6 col-md-push-3 shadow" style = "background-color: white; padding:8px; padding-bottom:1px;">
             <%= form_for(:user, :url => session_path(:user),html: {class: "form-group"}) do |f| %>
                 <%= f.label :email %>
-                <%= f.text_field :email, :class => "form-control" %>
+                <%= f.email_field :email, :class => "form-control" %>
                 <%= f.label :password, :style => "margin-top:3vh;" %>
                 <%= f.password_field :password, :class => "form-control", :style => "margin-bottom:1vh;"  %>
                 <%= f.check_box :remember_me %>
@@ -23,7 +23,6 @@
 				<br>  
 				<%= link_to "Forgot your password?", new_password_path(:user) %> 
                 <br>
-                <%= link_to "Go to Dashboard", form_index_path %>    
             <% end %>
             </div>
 		</div>	

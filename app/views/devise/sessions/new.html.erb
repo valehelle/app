@@ -1,7 +1,9 @@
 <div class = "col-xs-12 col-md-12" style = " height:100vh;">
   <div class = "col-xs-12 col-md-4 col-md-push-4 shadow" style = "background-color: white; padding-bottom: 10px;">
     <h2>Log in</h2>
-
+<%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
+<%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
+<%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field form-group">
         <%= f.label :email %><br />

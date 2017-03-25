@@ -1,8 +1,10 @@
 
     <h3>Name: <%= @form.name %></h3>
     <h4>Orders: <%= @form.receipt.count %></h4>
+    <h4 id = "path" data-id = "<%= @form.ref_id %>"></h4>
     <%= link_to 'Edit' , edit_form_path(@form), :class => "btn btn-success" %>
     <%= link_to 'View' , form_view_path(@form.ref_id), :class => "btn btn-primary" %>
+    <a class="btn btn-warning" id = "copy" >Copy URL</a>
     <%= link_to 'Delete' , @form , method: :delete, data: {confirm: "Are you sure?"} , :class => "btn btn-danger" %>
     <br>
     <br>

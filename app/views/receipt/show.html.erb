@@ -103,11 +103,24 @@
                         <h4>Total Price:
                             RM<%= @receipt.total %>
                         </h4>
+                        <% count = 1 %>
                         <% if @receipt.pay_img? %>
                             <h4>Image Proof:</h4>
-                            <%= image_tag @receipt.pay_img , :class => "img-responsive" %>
+                            <%= image_tag @receipt.pay_img , :class => "img-responsive myImg" , :alt => "Proof of Payment", :id => "myImg",:count => count.to_s  , :modeldata => "myModal" + count.to_s %>
                         <% end %>
                         <h4>Text proof:
                             <%= @receipt.pay_txt %>
                         </h4>
+                        <!-- The Modal -->
+                        <div id="<%= "myModal" + count.to_s %>" class="modal">
+                                <!-- The Close Button -->
+                                <span class="closeimg" id = "<%= "closeimg" + count.to_s %>" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+                                <!-- Modal Content (The Image) -->
+                                <img class="modal-content" id="<%= "img" + count.to_s %>" >
+
+                                <!-- Modal Caption (Image Text) -->
+                                <div id = "caption"><%= @receipt.pay_txt %></div>
+                        </div>
+                        <% count = count + 1 %>
         </div>

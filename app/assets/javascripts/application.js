@@ -15,4 +15,30 @@
 //= require_tree .
 jQuery(document).ready(function() {
     $('#open-modal').trigger('click');
+    $(".myImg").click(function(){
+       var modelId = $(this).attr("modeldata");
+       var count = $(this).attr("count");
+        // Get the modal
+        var modal = document.getElementById(modelId);
+
+        var img = "img" + count;
+        var cap = "caption" + count;
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var modalImg = document.getElementById(img);
+        
+        modal.style.display = "block";
+        modalImg.src = this.src;
+
+
+        // Get the <span> element that closes the modal
+        var closeimg = "closeimg" + count
+        var span = document.getElementById(closeimg);
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() { 
+        modal.style.display = "none";
+        }
+    
+    });
+
 });

@@ -13,7 +13,7 @@ class Receipt < ApplicationRecord
     end
     def generate_ref_id
         loop do
-            ref_id = SecureRandom.hex(4)
+            ref_id = SecureRandom.hex(4).upcase
             break ref_id unless Receipt.where(ref_id: ref_id).exists?
         end
     end

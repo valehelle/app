@@ -5,11 +5,13 @@
       <th class="col-xs-2 col-md-2" >Reference ID</th>
       <th class="col-xs-3 col-md-2" >Name</th>
       <th class="col-xs-6 col-md-3" >Address</th>
-      <th class="hidden-xs hidden-sm col-md-3" >Product</th>
+      <th class="hidden-xs hidden-sm col-md-2" >Product</th>
+      <th class="hidden-xs hidden-sm col-xs-1 col-md-1" >Payment</th>
       <th class="col-xs-1 col-md-2" >Status</th>
     </tr>
   </thead>
   <tbody>
+    <% count = 1 %>
     <% receipts.each do |f| %>
       <tr>
         <td>
@@ -29,6 +31,22 @@
           <% f.productreceipt.each do |p| %>
             <%= p.name %> x <%= p.qty %><br>
           <% end %>
+        </td>
+        <td class="hidden-xs hidden-sm" >
+          <%= image_tag f.pay_img , :class => "img-responsive myImg" , :alt => "Proof of Payment", :id => "myImg",:count => count.to_s  , :modeldata => "myModal" + count.to_s %>
+         
+          <!-- The Modal -->
+					<div id="<%= "myModal" + count.to_s %>" class="modal">
+										<!-- The Close Button -->
+										<span class="closeimg" id = "<%= "closeimg" + count.to_s %>" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+										<!-- Modal Content (The Image) -->
+										<img class="modal-content" id="<%= "img" + count.to_s %>" >
+
+										<!-- Modal Caption (Image Text) -->
+										<div id = "caption"><%= f.pay_txt %></div>
+						</div>
+             <% count = count + 1 %>
         </td>
         <td>
         <% if f.status == "Buyer Paid" %>
