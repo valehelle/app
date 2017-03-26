@@ -29,7 +29,7 @@
                 <%= f.text_field :phone, :class => "form-control" %>
                 <%= f.label :payment_method %>
                 <%= f.text_area :payment_method, :class => "form-control" %>
-                <%= f.label :banner %>
+                <%= f.label "Logo" %>
                 <% if @company.banner? %>
                     <img src="<%= @company.banner %>" class="img-rounded" alt="Cinque Terre" width="100" height="100" style = " display:block; margin:auto;">
                 <% elsif %>
