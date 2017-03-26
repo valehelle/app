@@ -42,56 +42,39 @@
 					</div>
 				</div>
 					<% if @isreceipt == true %>
+						<div class="col-xs-12" id="itemInfo" style="background-color:lightgrey;">
+											<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
+												<h5>Receipt Information</h5>
+											</div>
+						</div>
 						<div id="receiptstatus" class="col-xs-12 col-md-12" style="margin-bottom:10px; margin-top:10px;">
+							<% if @receipt.status == "Buyer Paid" %>
 							<div class="col-xs-12 col-md-4" style="background-color:#4CAF50;">
+							<% elsif @receipt.status == "Shipped" %>
+							<div class="col-xs-12 col-md-4" style="background-color:cornflowerblue;">
+							<% end %>
 								<h5 style="color:white;text-align:center;"><b><%= @receipt.status %></b></h5>
 							</div>
 						</div>
-						<div id="receiptstatus" class="col-xs-12 col-md-12" style="margin-top:10px;">
+						<div id="receiptid" class="col-xs-12 col-md-12" style="margin-top:10px;">
 						<h5><b>Reference ID</b></h5>
 						<hr style="margin-top:0px; margin-bottom:0px;">
 							<div class="col-xs-12 col-md-4" style = "padding:0;" >
-								<h5><b><%= @receipt.ref_id %></b></h5>
+								<h5><%= @receipt.ref_id %></h5>
 							</div>
 						</div>
 					<% end %>
 						<% if @receipt.status == "Shipped" %>
-							<div id="shipped" class="col-xs-12 col-md-12">
-								<h5>
-									Tracking Number:
-									<%= @receipt.shipping_number %>
-								</h5>
+						<div id="shipped" class="col-xs-12 col-md-12" >
+						<h5><b>Tracking Information</b></h5>
+						<hr style="margin-top:0px; margin-bottom:0px;">
+							<div class="col-xs-12 col-md-4" style = "padding:0;" >
+								<h5><%= @receipt.shipping_courier %>: <%= @receipt.shipping_number %></h5>
 							</div>
+						</div>
+
 							<% end %>
-							<% count = 1 %>
-										<% if @isreceipt  == true and @receipt.status == "Waiting Payment" %>
-
-										<% elsif @isreceipt == true and @receipt.status != "Waiting Payment" %>
-										<div id="paymentproof" class="col-xs-12">
-											<h5><b>Proof of payment</b></h5>
-											<hr style="margin-top:0px; margin-bottom:0px;">
-											<hr style="margin-top:0px; ">
-												<% if @receipt.pay_img? %>
-													<img src="<%= @receipt.pay_img %>" class="img-rounded myImg" alt="Cinque Terre" width=auto height="200"  alt = "Payment Proof" id = "myImg" count = "<%= count.to_s %>"  , modeldata =  "<%= "myModal" + count.to_s %>">
-												<% end %>
-												<% if @receipt.pay_txt? %>
-													<h5><%= @receipt.pay_txt %></h5>
-												<% end %>
-										</div>
-										<!-- The Modal -->
-										<div id="<%= "myModal" + count.to_s %>" class="modal">
-															<!-- The Close Button -->
-															<span class="closeimg" id = "<%= "closeimg" + count.to_s %>" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-
-															<!-- Modal Content (The Image) -->
-															<img class="modal-content" id="<%= "img" + count.to_s %>" >
-
-															<!-- Modal Caption (Image Text) -->
-															<div id = "caption"><%= @receipt.pay_txt %></div>
-											</div>
-											
-										<% end %>
-									<% if @receipt.status == "Buyer Paid" and @isreceipt == true %>
+									<% if @receipt.status == "Buyer Paid" or @receipt.status == "Shipped" and @isreceipt == true %>
 										<div id="paymentmethod" class="col-xs-12">
 											<h5><b>Shipping Information</b></h5>
 											<hr style="margin-top:0px; margin-bottom:0px;">
@@ -121,6 +104,35 @@
 											</h5>
 										</div>
 									<% end %>
+							<% count = 1 %>
+										<% if @isreceipt  == true and @receipt.status == "Waiting Payment" %>
+
+										<% elsif @isreceipt == true and @receipt.status != "Waiting Payment" %>
+										<div id="paymentproof" class="col-xs-12" style = "margin-bottom:10px;">
+											<h5><b>Proof of payment</b></h5>
+											<hr style="margin-top:0px; margin-bottom:0px;">
+											<hr style="margin-top:0px; ">
+												<% if @receipt.pay_img? %>
+													<img src="<%= @receipt.pay_img %>" class="img-rounded myImg" alt="Cinque Terre" width=auto height="200"  alt = "Payment Proof" id = "myImg" count = "<%= count.to_s %>"  , modeldata =  "<%= "myModal" + count.to_s %>">
+												<% end %>
+												<% if @receipt.pay_txt? %>
+													<h5><%= @receipt.pay_txt %></h5>
+												<% end %>
+										</div>
+										<!-- The Modal -->
+										<div id="<%= "myModal" + count.to_s %>" class="modal">
+															<!-- The Close Button -->
+															<span class="closeimg" id = "<%= "closeimg" + count.to_s %>" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+															<!-- Modal Content (The Image) -->
+															<img class="modal-content" id="<%= "img" + count.to_s %>" >
+
+															<!-- Modal Caption (Image Text) -->
+															<div id = "caption"><%= @receipt.pay_txt %></div>
+											</div>
+											
+										<% end %>
+
 										<div class="col-xs-12" id="itemInfo" style="background-color:lightgrey;">
 											<div class="col-xs-8" style="padding-left:0px; padding-right:0px;">
 												<h5>Items</h5>
@@ -161,7 +173,7 @@
 																				<span class="glyphicon glyphicon-minus"></span>
 																			</button>
 																		</span>
-																		<%= p.number_field :qty , :class => "qty form-control", :data => p.object.price, :sub => counter, :shipping => p.object.shipping_price, :ship_id => "shipping_" + counter.to_s, :min => "0" %>
+																		<%= p.number_field :qty , :class => "qty form-control", :data => p.object.price, :sub => counter, :shipping => p.object.shipping_price, :ship_id => "shipping_" + counter.to_s, :min => "0", :style => "text-align:center;" %>
 																		<span class="input-group-btn">
 																			<button type="button" class="btn btn-success btn-number" data-type="plus" data-field="<%= counter.to_s %>">
 																				<span class="glyphicon glyphicon-plus"></span>

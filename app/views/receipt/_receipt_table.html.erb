@@ -4,7 +4,7 @@
     <tr>
       <th class="col-xs-2 col-md-2" >Reference ID</th>
       <th class="col-xs-3 col-md-2" >Name</th>
-      <th class="col-xs-6 col-md-3" >Address</th>
+      <th class="hidden-xs hidden-sm col-xs-6 col-md-3" >Address</th>
       <th class="hidden-xs hidden-sm col-md-2" >Product</th>
       <th class="hidden-xs hidden-sm col-xs-1 col-md-1" >Payment</th>
       <th class="col-xs-1 col-md-2" >Status</th>
@@ -20,7 +20,7 @@
         <td>
           <%= f.customer_name %>
         </td>
-        <td>
+        <td class = "hidden-xs hidden-sm">
           <%= f.shipping_address %>,<br>
           <%= f.shipping_poskod %>,
           <%= f.shipping_city %>,<br>

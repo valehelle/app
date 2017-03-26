@@ -51,7 +51,7 @@
                       <li class = "<%= active_class(new_form_path) %> "> <%= link_to "Create", new_form_path, :style => "color: #b8c7ce; border-left: 3px solid transparent;"  %> </li>
                     </ul>
                   </li>
-                  <li class="dropdown "><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #4b646f; background-color: #1a2226 !important;padding-bottom:10px;">Receipt<b class="caret"></b></a>
+                  <li class="dropdown "><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color: #4b646f; background-color: #1a2226 !important;padding-bottom:10px;">Receipts<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                       <%= active_link_to 'View All',  receipt_index_path(status:0), :active => /status=0/, :wrap_tag => :li, :style => "color: #b8c7ce; border-left: 3px solid transparent;"   %>
                       <% if false %>

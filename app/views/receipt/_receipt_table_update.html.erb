@@ -39,7 +39,7 @@
                       <hr style="margin-top:0px; margin-bottom:10px;">
                       <div class="col-xs-12 col-md-12" style="padding-left:0px;">
                           <div class="form-group">
-                              <%= select("receipt" + "[" + receipt.id.to_s +  "]", :shipping_courier, ["Pos Laju", "NinjaVan", "DHL"], :class => "form-control" ) %>
+                              <%= select("receipt" + "[" + receipt.id.to_s +  "]", :shipping_courier, ["Pos Laju", "Ninja Van", "DHL", "ABX Express","CityLink", "Gdex", "Skynet", "TNT", "TA-Q-BIN"], :class => "form-control" ) %>
                               <%= f.text_field :shipping_number, :class => "form-control", :style =>"margin-top:8px;"  %>
                               
                           </div>
