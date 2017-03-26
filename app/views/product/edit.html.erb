@@ -1,0 +1,7 @@
+<h2>Edit Product</h2>
+<div class = "col-md-5" style = "padding:0;">
+<%= form_for @product do |builder| %>
+    <%= render(:partial => "form/product_fields", :locals => {:f => builder} )%>
+    <%= builder.submit "Update", :class => "btn btn-success col-xs-12", :style => "margin-top:8px; margin-bottom:8px;" %>
+<% end %>
+</div>

@@ -1,9 +1,10 @@
 <h2>Product</h2>
-<%= link_to 'Edit' , edit_form_path(@product.form_id), :class => "btn btn-success" %>
+<%= link_to 'Edit' , edit_product_path(@product), :class => "btn btn-success" %>
 <br>
 <br>
-<div class = "col-xs-12 col-md-5" style = "padding-left:0px;">
-        <div class = " col-xs-12 col-md-12 " style = "background-color: white; border: 1px solid #d6dadc;" >
+<div class = "col-md-12" style = "padding:0">
+    <div class = "col-md-5 shadow" style = " background-color: white; padding:5px; margin-bottom:15px; border-top :3px solid #3c8dbc; border-radius: 3px;">
+ 
             <h4><label><%= @product.name %></label></h4>
             <hr style="margin-top:0px; margin-bottom:10px;">
             <h4>
